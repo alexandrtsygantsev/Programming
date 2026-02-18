@@ -31,12 +31,12 @@
             tabPage1 = new TabPage();
             EnumGroupBox = new GroupBox();
             EnumsListBox = new ListBox();
-            ChooseLabel = new Label();
+            EnumLabel = new Label();
             EnumListBox = new TabControl();
             ValueListBox = new ListBox();
-            label1 = new Label();
-            label2 = new Label();
-            textBox1 = new TextBox();
+            ValueLabel = new Label();
+            IntLabel = new Label();
+            IntValueBox = new TextBox();
             tabPage1.SuspendLayout();
             EnumGroupBox.SuspendLayout();
             EnumListBox.SuspendLayout();
@@ -55,12 +55,12 @@
             // 
             // EnumGroupBox
             // 
-            EnumGroupBox.Controls.Add(textBox1);
-            EnumGroupBox.Controls.Add(label2);
+            EnumGroupBox.Controls.Add(IntValueBox);
+            EnumGroupBox.Controls.Add(IntLabel);
             EnumGroupBox.Controls.Add(ValueListBox);
-            EnumGroupBox.Controls.Add(label1);
+            EnumGroupBox.Controls.Add(ValueLabel);
             EnumGroupBox.Controls.Add(EnumsListBox);
-            EnumGroupBox.Controls.Add(ChooseLabel);
+            EnumGroupBox.Controls.Add(EnumLabel);
             EnumGroupBox.Dock = DockStyle.Fill;
             EnumGroupBox.Location = new Point(3, 3);
             EnumGroupBox.Name = "EnumGroupBox";
@@ -77,15 +77,16 @@
             EnumsListBox.ScrollAlwaysVisible = true;
             EnumsListBox.Size = new Size(161, 334);
             EnumsListBox.TabIndex = 1;
+            EnumsListBox.SelectedIndexChanged += this.EnumsListBox_SelectedIndexChanged;
+             
+            // EnumLabel
             // 
-            // ChooseLabel
-            // 
-            ChooseLabel.AutoSize = true;
-            ChooseLabel.Location = new Point(6, 30);
-            ChooseLabel.Name = "ChooseLabel";
-            ChooseLabel.Size = new Size(121, 15);
-            ChooseLabel.TabIndex = 0;
-            ChooseLabel.Text = "Choose enumaration:";
+            EnumLabel.AutoSize = true;
+            EnumLabel.Location = new Point(6, 30);
+            EnumLabel.Name = "EnumLabel";
+            EnumLabel.Size = new Size(121, 15);
+            EnumLabel.TabIndex = 0;
+            EnumLabel.Text = "Choose enumaration:";
             // 
             // EnumListBox
             // 
@@ -105,33 +106,33 @@
             ValueListBox.ScrollAlwaysVisible = true;
             ValueListBox.Size = new Size(161, 334);
             ValueListBox.TabIndex = 3;
-            ValueListBox.SelectedIndexChanged += this.listBox1_SelectedIndexChanged;
+            //ValueListBox.SelectedIndexChanged += this.ValueListBox_SelectedIndexChanged;
             // 
-            // label1
+            // ValueLabel
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(203, 30);
-            label1.Name = "label1";
-            label1.Size = new Size(81, 15);
-            label1.TabIndex = 2;
-            label1.Text = "Choose value:";
-            label1.Click += this.label1_Click;
+            ValueLabel.AutoSize = true;
+            ValueLabel.Location = new Point(203, 30);
+            ValueLabel.Name = "ValueLabel";
+            ValueLabel.Size = new Size(81, 15);
+            ValueLabel.TabIndex = 2;
+            ValueLabel.Text = "Choose value:";
+            //ValueLabel.Click += this.ValueLabel_Click;
             // 
-            // label2
+            // IntLabel
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(391, 30);
-            label2.Name = "label2";
-            label2.Size = new Size(55, 15);
-            label2.TabIndex = 4;
-            label2.Text = "Int value:";
+            IntLabel.AutoSize = true;
+            IntLabel.Location = new Point(391, 30);
+            IntLabel.Name = "IntLabel";
+            IntLabel.Size = new Size(55, 15);
+            IntLabel.TabIndex = 4;
+            IntLabel.Text = "Int value:";
             // 
-            // textBox1
+            // IntValueBox
             // 
-            textBox1.Location = new Point(391, 59);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 23);
-            textBox1.TabIndex = 5;
+            IntValueBox.Location = new Point(391, 59);
+            IntValueBox.Name = "IntValueBox";
+            IntValueBox.Size = new Size(100, 23);
+            IntValueBox.TabIndex = 5;
             // 
             // MainForm
             // 
@@ -152,11 +153,11 @@
         private TabPage tabPage1;
         private TabControl EnumListBox;
         private GroupBox EnumGroupBox;
-        private Label ChooseLabel;
+        private Label EnumLabel;
         private ListBox EnumsListBox;
         private ListBox ValueListBox;
-        private Label label1;
-        private TextBox textBox1;
-        private Label label2;
+        private Label ValueLabel;
+        private TextBox IntValueBox;
+        private Label IntLabel;
     }
 }

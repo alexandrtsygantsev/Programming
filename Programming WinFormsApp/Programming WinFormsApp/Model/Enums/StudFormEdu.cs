@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Programming_WinFormsApp.Model
+namespace Programming_WinFormsApp.Model.Enums
 {
     internal enum StudFormEdu
     {
