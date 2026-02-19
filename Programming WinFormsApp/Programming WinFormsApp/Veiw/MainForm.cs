@@ -49,7 +49,12 @@ namespace Programming_WinFormsApp
 
         void ValueListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string selectedValue = ValueListBox.SelectedItem.ToString();      
+            string selectedValue = ValueListBox.SelectedItem.ToString();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
