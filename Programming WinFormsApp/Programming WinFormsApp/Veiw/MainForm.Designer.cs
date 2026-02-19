@@ -131,6 +131,7 @@
             IntValueBox.Name = "IntValueBox";
             IntValueBox.Size = new Size(100, 23);
             IntValueBox.TabIndex = 5;
+            IntValueBox.TextChanged += IntValueBox_TextChanged;
             // 
             // IntLabel
             // 
@@ -196,7 +197,6 @@
             Controls.Add(EnumListBox);
             Name = "MainForm";
             Text = "Form1";
-            Load += MainForm_Load;
             tabPage1.ResumeLayout(false);
             WeekParsBox.ResumeLayout(false);
             WeekParsBox.PerformLayout();

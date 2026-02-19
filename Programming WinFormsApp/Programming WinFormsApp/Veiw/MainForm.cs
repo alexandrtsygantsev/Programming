@@ -16,7 +16,7 @@ namespace Programming_WinFormsApp
 
             enumTypes = new Dictionary<string, Type>
             {
-                //{ "Color", typeof(Color) }, почему-то не работает
+                { "Color", typeof(Colorix) },
                 { "Genre", typeof(Genre) },
                 { "Season", typeof(Season) },
                 { "SmartManufac", typeof(SmartManufac) },
@@ -28,31 +28,42 @@ namespace Programming_WinFormsApp
             {
                 EnumsListBox.Items.Add(enumName);
             }
+            EnumsListBox.SelectedIndexChanged += new EventHandler(EnumsListBox_SelectedIndexChanged);
+            ValueListBox.SelectedIndexChanged += new EventHandler(ValueListBox_SelectedIndexChanged);
 
         }
 
         void EnumsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (EnumsListBox.SelectedItem != null)
-            {
-                string selectedEnum = EnumsListBox.SelectedItem.ToString();
+            string selectedEnum = EnumsListBox.SelectedItem.ToString();
 
-                ValueListBox.Items.Clear();
+            ValueListBox.Items.Clear();
 
-                Type enumType = enumTypes[selectedEnum];
-                string[] enumValues = Enum.GetNames(enumType);
+            Type enumType = enumTypes[selectedEnum];
+            string[] enumValues = Enum.GetNames(enumType);
 
-                ValueListBox.Items.AddRange(enumValues);
+            ValueListBox.Items.AddRange(enumValues);
 
-            }
+
         }
 
         void ValueListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (ValueListBox.SelectedItem == null) return;
+
             string selectedValue = ValueListBox.SelectedItem.ToString();
+            string selectedEnum = EnumsListBox.SelectedItem.ToString();
+
+            Type enumType = enumTypes[selectedEnum];
+
+            object enumObject = Enum.Parse(enumType, selectedValue);
+
+            int numericValue = Convert.ToInt32(enumObject);
+
+            IntValueBox.Text = numericValue.ToString();
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private void IntValueBox_TextChanged(object sender, EventArgs e)
         {
 
         }
