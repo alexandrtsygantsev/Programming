@@ -83,6 +83,7 @@
             StatusParse.Size = new Size(37, 15);
             StatusParse.TabIndex = 4;
             StatusParse.Text = "None";
+            StatusParse.Click += StatusParse_Click;
             // 
             // ParseButton
             // 
@@ -92,6 +93,7 @@
             ParseButton.TabIndex = 3;
             ParseButton.Text = "Parse";
             ParseButton.UseVisualStyleBackColor = true;
+            ParseButton.Click += ParseButton_Click;
             // 
             // ParsingTextBox
             // 
@@ -100,6 +102,7 @@
             ParsingTextBox.Name = "ParsingTextBox";
             ParsingTextBox.Size = new Size(215, 23);
             ParsingTextBox.TabIndex = 2;
+            ParsingTextBox.TextChanged += ParsingTextBox_TextChanged;
             // 
             // TypeLabel
             // 

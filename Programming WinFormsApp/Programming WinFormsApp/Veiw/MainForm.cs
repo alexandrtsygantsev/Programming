@@ -67,5 +67,68 @@ namespace Programming_WinFormsApp
         {
 
         }
+
+        private void ParseButton_Click(object sender, EventArgs e)
+        {
+            string userText = ParsingTextBox.Text.Trim();
+
+            Weekday parseDay;
+            bool parseOkey = Enum.TryParse<Weekday>(userText, ignoreCase: true, out parseDay);
+
+            if (parseOkey)
+            {
+                bool isNumber = true;
+                foreach (char c in userText)
+                {
+                    if (!char.IsDigit(c))
+                    {
+                        isNumber = false;
+                        break;
+                    }
+                }
+                if (isNumber)
+                {
+                    StatusParse.Text = "Ќет такого дн€ недели";
+                }
+                else
+                {
+                    int numberDay = (int)parseDay;
+                    StatusParse.Text = $"Ёто день недели ({parseDay} = {numberDay})";
+                    return;
+                }
+            }
+            StatusParse.Text = "Ќет такого дн€ недели";
+        }
+
+        //private void ParseButton_Click(object sender, EventArgs e)
+        //{
+        //    string userText = ParsingTextBox.Text.Trim();
+
+        //    Weekday parseDay;
+        //    bool parseOk = Enum.TryParse<Weekday>(userText, ignoreCase: true, out parseDay);
+
+        //    if (parseOk)
+        //    {
+        //        // ѕровер€ем, что полученное значение действительно определено в перечислении
+        //        if (Enum.IsDefined(typeof(Weekday), parseDay))
+        //        {
+        //            int numberDay = (int)parseDay;
+        //            StatusParse.Text = $"Ёто день недели ({parseDay} = {numberDay})";
+        //            return;
+        //        }
+        //    }
+
+        //    StatusParse.Text = "Ќет такого дн€ недели";
+        //}
+
+        private void StatusParse_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ParsingTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
