@@ -7,7 +7,6 @@ namespace Programming_WinFormsApp
 {
     public partial class MainForm : Form
     {
-        // ќбъ€вл€ем словарь на уровне класса, чтобы он был доступен во всех методах
         private Dictionary<string, Type> enumTypes;
 
         public MainForm()
@@ -34,7 +33,11 @@ namespace Programming_WinFormsApp
             ValueListBox.SelectedIndexChanged += new EventHandler(ValueListBox_SelectedIndexChanged);
 
         }
-
+        /// <summary>
+        /// Ќаполнение списка с названи€ми перечислений.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void EnumsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedEnum = EnumsListBox.SelectedItem.ToString();
@@ -49,6 +52,11 @@ namespace Programming_WinFormsApp
 
         }
 
+        /// <summary>
+        /// Ќаполенение списка перечисленний по их названи€м.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void ValueListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ValueListBox.SelectedItem == null) return;
@@ -65,11 +73,11 @@ namespace Programming_WinFormsApp
             IntValueBox.Text = numericValue.ToString();
         }
 
-        private void IntValueBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// ‘ункци€ поиска дн€ недели и его числового значени€.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ParseButton_Click(object sender, EventArgs e)
         {
             string userText = ParsingTextBox.Text.Trim();
@@ -102,28 +110,11 @@ namespace Programming_WinFormsApp
             StatusParse.Text = "Ќет такого дн€ недели";
         }
 
-        //private void ParseButton_Click(object sender, EventArgs e)
-        //{
-        //    string userText = ParsingTextBox.Text.Trim();
-
-        //    Weekday parseDay;
-        //    bool parseOk = Enum.TryParse<Weekday>(userText, ignoreCase: true, out parseDay);
-
-        //    if (parseOk)
-        //    {
-        //        // ѕровер€ем, что полученное значение действительно определено в перечислении
-        //        if (Enum.IsDefined(typeof(Weekday), parseDay))
-        //        {
-        //            int numberDay = (int)parseDay;
-        //            StatusParse.Text = $"Ёто день недели ({parseDay} = {numberDay})";
-        //            return;
-        //        }
-        //    }
-
-        //    StatusParse.Text = "Ќет такого дн€ недели";
-        //}
-
-
+        /// <summary>
+        /// ‘укнци€ выбора времени года и выполенение некоторых действий в зависимости от выбора.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GoButton_Click(object sender, EventArgs e)
         {
             Season chooseSeason = (Season)SeasonDropList.SelectedItem;

@@ -126,9 +126,9 @@
             StatusParse.ForeColor = SystemColors.ControlDark;
             StatusParse.Location = new Point(19, 95);
             StatusParse.Name = "StatusParse";
-            StatusParse.Size = new Size(37, 15);
+            StatusParse.Size = new Size(133, 15);
             StatusParse.TabIndex = 4;
-            StatusParse.Text = "None";
+            StatusParse.Text = "Введите день недели";
             // 
             // ParseButton
             // 
@@ -178,7 +178,6 @@
             IntValueBox.Name = "IntValueBox";
             IntValueBox.Size = new Size(100, 23);
             IntValueBox.TabIndex = 5;
-            IntValueBox.TextChanged += IntValueBox_TextChanged;
             // 
             // IntLabel
             // 
