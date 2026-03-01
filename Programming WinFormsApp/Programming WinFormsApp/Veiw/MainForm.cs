@@ -14,6 +14,8 @@ namespace Programming_WinFormsApp
         {
             InitializeComponent();
 
+            SeasonDropList.DataSource = Enum.GetValues(typeof(Season));
+
             enumTypes = new Dictionary<string, Type>
             {
                 { "Color", typeof(Colorix) },
@@ -121,14 +123,34 @@ namespace Programming_WinFormsApp
         //    StatusParse.Text = "Нет такого дня недели";
         //}
 
-        private void StatusParse_Click(object sender, EventArgs e)
-        {
 
+        private void GoButton_Click(object sender, EventArgs e)
+        {
+            Season chooseSeason = (Season)SeasonDropList.SelectedItem;
+
+            switch (chooseSeason)
+            {
+                case Season.Summer:
+                    MessageBox.Show("Ура!Солнце!");
+                    break;
+                case Season.Autumn:
+                    EnumPage.BackColor = ColorTranslator.FromHtml("#e29c45");
+                    break;
+                case Season.Winter:
+                    MessageBox.Show("Бррр!Холодно!");
+                    break;
+                case Season.Spring:
+                    EnumPage.BackColor = ColorTranslator.FromHtml("#559c45");
+                    break;
+                default:
+                    MessageBox.Show("Что-то пошло не так");
+                    break;
+            }
         }
 
-        private void ParsingTextBox_TextChanged(object sender, EventArgs e)
+        private void SeasonDropList_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            EnumPage.BackColor = Color.White;
         }
     }
 }

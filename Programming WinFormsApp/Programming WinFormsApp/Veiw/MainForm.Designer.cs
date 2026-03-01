@@ -28,7 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            tabPage1 = new TabPage();
+            EnumPage = new TabPage();
+            SeasHandleBox = new GroupBox();
+            SeasonDropList = new ComboBox();
+            GoButton = new Button();
+            ChooseLabel = new Label();
             WeekParsBox = new GroupBox();
             StatusParse = new Label();
             ParseButton = new Button();
@@ -42,23 +46,65 @@
             EnumsListBox = new ListBox();
             EnumLabel = new Label();
             EnumListBox = new TabControl();
-            tabPage1.SuspendLayout();
+            EnumPage.SuspendLayout();
+            SeasHandleBox.SuspendLayout();
             WeekParsBox.SuspendLayout();
             EnumGroupBox.SuspendLayout();
             EnumListBox.SuspendLayout();
             SuspendLayout();
             // 
-            // tabPage1
+            // EnumPage
             // 
-            tabPage1.Controls.Add(WeekParsBox);
-            tabPage1.Controls.Add(EnumGroupBox);
-            tabPage1.Location = new Point(4, 24);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(792, 422);
-            tabPage1.TabIndex = 0;
-            tabPage1.Text = "Enum";
-            tabPage1.UseVisualStyleBackColor = true;
+            EnumPage.Controls.Add(SeasHandleBox);
+            EnumPage.Controls.Add(WeekParsBox);
+            EnumPage.Controls.Add(EnumGroupBox);
+            EnumPage.Location = new Point(4, 24);
+            EnumPage.Name = "EnumPage";
+            EnumPage.Padding = new Padding(3);
+            EnumPage.Size = new Size(792, 422);
+            EnumPage.TabIndex = 0;
+            EnumPage.Text = "Enum";
+            EnumPage.UseVisualStyleBackColor = true;
+            // 
+            // SeasHandleBox
+            // 
+            SeasHandleBox.Controls.Add(SeasonDropList);
+            SeasHandleBox.Controls.Add(GoButton);
+            SeasHandleBox.Controls.Add(ChooseLabel);
+            SeasHandleBox.Location = new Point(403, 273);
+            SeasHandleBox.Name = "SeasHandleBox";
+            SeasHandleBox.Size = new Size(386, 141);
+            SeasHandleBox.TabIndex = 7;
+            SeasHandleBox.TabStop = false;
+            SeasHandleBox.Text = "Season Handle";
+            // 
+            // SeasonDropList
+            // 
+            SeasonDropList.FormattingEnabled = true;
+            SeasonDropList.Location = new Point(19, 57);
+            SeasonDropList.Name = "SeasonDropList";
+            SeasonDropList.Size = new Size(230, 23);
+            SeasonDropList.TabIndex = 4;
+            SeasonDropList.SelectedIndexChanged += SeasonDropList_SelectedIndexChanged;
+            // 
+            // GoButton
+            // 
+            GoButton.Location = new Point(255, 57);
+            GoButton.Name = "GoButton";
+            GoButton.Size = new Size(75, 23);
+            GoButton.TabIndex = 3;
+            GoButton.Text = "Go!";
+            GoButton.UseVisualStyleBackColor = true;
+            GoButton.Click += GoButton_Click;
+            // 
+            // ChooseLabel
+            // 
+            ChooseLabel.AutoSize = true;
+            ChooseLabel.Location = new Point(19, 28);
+            ChooseLabel.Name = "ChooseLabel";
+            ChooseLabel.Size = new Size(89, 15);
+            ChooseLabel.TabIndex = 1;
+            ChooseLabel.Text = "Choose season:";
             // 
             // WeekParsBox
             // 
@@ -68,7 +114,7 @@
             WeekParsBox.Controls.Add(TypeLabel);
             WeekParsBox.Location = new Point(4, 269);
             WeekParsBox.Name = "WeekParsBox";
-            WeekParsBox.Size = new Size(365, 146);
+            WeekParsBox.Size = new Size(393, 146);
             WeekParsBox.TabIndex = 6;
             WeekParsBox.TabStop = false;
             WeekParsBox.Text = "Weekday Parsing";
@@ -83,7 +129,6 @@
             StatusParse.Size = new Size(37, 15);
             StatusParse.TabIndex = 4;
             StatusParse.Text = "None";
-            StatusParse.Click += StatusParse_Click;
             // 
             // ParseButton
             // 
@@ -100,9 +145,8 @@
             ParsingTextBox.BackColor = SystemColors.Window;
             ParsingTextBox.Location = new Point(19, 57);
             ParsingTextBox.Name = "ParsingTextBox";
-            ParsingTextBox.Size = new Size(215, 23);
+            ParsingTextBox.Size = new Size(230, 23);
             ParsingTextBox.TabIndex = 2;
-            ParsingTextBox.TextChanged += ParsingTextBox_TextChanged;
             // 
             // TypeLabel
             // 
@@ -184,7 +228,7 @@
             // 
             // EnumListBox
             // 
-            EnumListBox.Controls.Add(tabPage1);
+            EnumListBox.Controls.Add(EnumPage);
             EnumListBox.Dock = DockStyle.Fill;
             EnumListBox.Location = new Point(0, 0);
             EnumListBox.Name = "EnumListBox";
@@ -200,7 +244,9 @@
             Controls.Add(EnumListBox);
             Name = "MainForm";
             Text = "Form1";
-            tabPage1.ResumeLayout(false);
+            EnumPage.ResumeLayout(false);
+            SeasHandleBox.ResumeLayout(false);
+            SeasHandleBox.PerformLayout();
             WeekParsBox.ResumeLayout(false);
             WeekParsBox.PerformLayout();
             EnumGroupBox.ResumeLayout(false);
@@ -210,7 +256,7 @@
         }
 
         #endregion
-        private TabPage tabPage1;
+        private TabPage EnumPage;
         private TabControl EnumListBox;
         private GroupBox EnumGroupBox;
         private Label EnumLabel;
@@ -224,5 +270,10 @@
         private TextBox ParsingTextBox;
         private Label TypeLabel;
         private Label StatusParse;
+        private GroupBox SeasHandleBox;
+        private Label label1;
+        private Button GoButton;
+        private Label ChooseLabel;
+        private ComboBox SeasonDropList;
     }
 }
