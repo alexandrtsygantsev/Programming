@@ -46,11 +46,23 @@
             EnumsListBox = new ListBox();
             EnumLabel = new Label();
             EnumListBox = new TabControl();
+            ClassPage = new TabPage();
+            groupBox1 = new GroupBox();
+            RecListBox = new ListBox();
+            LenTextBox = new TextBox();
+            LenLabel = new Label();
+            WithTextBox = new TextBox();
+            WidthLabel = new Label();
+            ColorTextBox = new TextBox();
+            ColorLabel = new Label();
+            FindButton = new Button();
             EnumPage.SuspendLayout();
             SeasHandleBox.SuspendLayout();
             WeekParsBox.SuspendLayout();
             EnumGroupBox.SuspendLayout();
             EnumListBox.SuspendLayout();
+            ClassPage.SuspendLayout();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // EnumPage
@@ -228,12 +240,108 @@
             // EnumListBox
             // 
             EnumListBox.Controls.Add(EnumPage);
+            EnumListBox.Controls.Add(ClassPage);
             EnumListBox.Dock = DockStyle.Fill;
             EnumListBox.Location = new Point(0, 0);
             EnumListBox.Name = "EnumListBox";
             EnumListBox.SelectedIndex = 0;
             EnumListBox.Size = new Size(800, 450);
             EnumListBox.TabIndex = 0;
+            // 
+            // ClassPage
+            // 
+            ClassPage.Controls.Add(groupBox1);
+            ClassPage.Location = new Point(4, 24);
+            ClassPage.Name = "ClassPage";
+            ClassPage.Size = new Size(792, 422);
+            ClassPage.TabIndex = 1;
+            ClassPage.Text = "Classes";
+            ClassPage.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(FindButton);
+            groupBox1.Controls.Add(ColorTextBox);
+            groupBox1.Controls.Add(ColorLabel);
+            groupBox1.Controls.Add(WithTextBox);
+            groupBox1.Controls.Add(WidthLabel);
+            groupBox1.Controls.Add(LenTextBox);
+            groupBox1.Controls.Add(LenLabel);
+            groupBox1.Controls.Add(RecListBox);
+            groupBox1.Location = new Point(3, 3);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(461, 259);
+            groupBox1.TabIndex = 1;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Rectangles";
+            // 
+            // RecListBox
+            // 
+            RecListBox.FormattingEnabled = true;
+            RecListBox.Location = new Point(6, 22);
+            RecListBox.Name = "RecListBox";
+            RecListBox.ScrollAlwaysVisible = true;
+            RecListBox.Size = new Size(161, 184);
+            RecListBox.TabIndex = 2;
+            // 
+            // LenTextBox
+            // 
+            LenTextBox.Location = new Point(184, 40);
+            LenTextBox.Name = "LenTextBox";
+            LenTextBox.Size = new Size(100, 23);
+            LenTextBox.TabIndex = 7;
+            // 
+            // LenLabel
+            // 
+            LenLabel.AutoSize = true;
+            LenLabel.Location = new Point(184, 22);
+            LenLabel.Name = "LenLabel";
+            LenLabel.Size = new Size(44, 15);
+            LenLabel.TabIndex = 6;
+            LenLabel.Text = "Lenght";
+            // 
+            // WithTextBox
+            // 
+            WithTextBox.Location = new Point(184, 88);
+            WithTextBox.Name = "WithTextBox";
+            WithTextBox.Size = new Size(100, 23);
+            WithTextBox.TabIndex = 9;
+            WithTextBox.TextChanged += WithTextBox_TextChanged;
+            // 
+            // WidthLabel
+            // 
+            WidthLabel.AutoSize = true;
+            WidthLabel.Location = new Point(184, 70);
+            WidthLabel.Name = "WidthLabel";
+            WidthLabel.Size = new Size(39, 15);
+            WidthLabel.TabIndex = 8;
+            WidthLabel.Text = "Width";
+            WidthLabel.Click += this.WidthLabel_Click;
+            // 
+            // ColorTextBox
+            // 
+            ColorTextBox.Location = new Point(184, 142);
+            ColorTextBox.Name = "ColorTextBox";
+            ColorTextBox.Size = new Size(100, 23);
+            ColorTextBox.TabIndex = 11;
+            // 
+            // ColorLabel
+            // 
+            ColorLabel.AutoSize = true;
+            ColorLabel.Location = new Point(184, 124);
+            ColorLabel.Name = "ColorLabel";
+            ColorLabel.Size = new Size(36, 15);
+            ColorLabel.TabIndex = 10;
+            ColorLabel.Text = "Color";
+            // 
+            // FindButton
+            // 
+            FindButton.Location = new Point(184, 183);
+            FindButton.Name = "FindButton";
+            FindButton.Size = new Size(75, 23);
+            FindButton.TabIndex = 12;
+            FindButton.Text = "Find";
+            FindButton.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -251,6 +359,9 @@
             EnumGroupBox.ResumeLayout(false);
             EnumGroupBox.PerformLayout();
             EnumListBox.ResumeLayout(false);
+            ClassPage.ResumeLayout(false);
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -270,9 +381,18 @@
         private Label TypeLabel;
         private Label StatusParse;
         private GroupBox SeasHandleBox;
-        private Label label1;
+        private Label LenLabel;
         private Button GoButton;
         private Label ChooseLabel;
         private ComboBox SeasonDropList;
+        private TabPage ClassPage;
+        private GroupBox groupBox1;
+        private TextBox LenTextBox;
+        private ListBox RecListBox;
+        private Button FindButton;
+        private TextBox ColorTextBox;
+        private Label ColorLabel;
+        private TextBox WithTextBox;
+        private Label WidthLabel;
     }
 }

@@ -25,6 +25,7 @@ namespace Programming_WinFormsApp.Model
                 timeMin = value;
             }
         }
+        public Flight() { }
 
         public Flight(string depPoint, string destPoint, int timeMin)
         {

@@ -37,6 +37,7 @@ namespace Programming_WinFormsApp.Model
                 grade = value;
             }
         }
+        public Subject() { }
         public Subject(string name, int numHours, string teachers, int grade)
         {
             Name = name;

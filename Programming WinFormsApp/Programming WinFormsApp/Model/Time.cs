@@ -67,6 +67,7 @@ namespace Programming_WinFormsApp.Model
                 sec = value;
             }
         }
+        public Time() { }
         public Time(int hour, int min, int sec)
         {
             this.hour = hour;

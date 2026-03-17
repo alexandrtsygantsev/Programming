@@ -25,6 +25,7 @@ namespace Programming_WinFormsApp.Model
             }
         }
 
+        public Song() { }
         public Song(string  title, string author, int duration)
         {
             Title = title;

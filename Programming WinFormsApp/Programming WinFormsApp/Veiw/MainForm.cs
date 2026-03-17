@@ -143,5 +143,10 @@ namespace Programming_WinFormsApp
         {
             EnumPage.BackColor = Color.White;
         }
+
+        private void WithTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

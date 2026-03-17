@@ -22,6 +22,8 @@ namespace Programming_WinFormsApp.Model
             }
 
         }
+        public Contact() { }
+
         public Contact(string surname, string name, int phone)
         {
             Surname = surname;

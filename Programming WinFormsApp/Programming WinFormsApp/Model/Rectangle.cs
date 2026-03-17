@@ -43,7 +43,7 @@ namespace Programming_WinFormsApp.Model
                 width = value;
             }
         }
-
+        public Rectangle() { }
         public Rectangle(double length, double width, string color)
         {
             Length = length; 

@@ -88,15 +88,7 @@ namespace Programming_WinFormsApp.Model
             }
         }
 
-        public Film()
-        {
-
-            Name = "Неизвестный фильм";
-            DurationMin = 90; 
-            Years = 2000;      
-            Genre = "Не указан";
-            Rating = 5.0;     
-        }
+        public Film() { }
 
         public Film(string name, int durationMin, int years, string genre, double rating)
         {
