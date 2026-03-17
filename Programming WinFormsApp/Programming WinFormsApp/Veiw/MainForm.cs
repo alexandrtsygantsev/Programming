@@ -103,7 +103,7 @@ namespace Programming_WinFormsApp
                 else
                 {
                     int numberDay = (int)parseDay;
-                    StatusParse.Text = $"Это день недели ({parseDay} = {numberDay})";
+                    StatusParse.Text = $"Это день недели ({parseDay} = {numberDay + 1})";
                     return;
                 }
             }
@@ -122,13 +122,13 @@ namespace Programming_WinFormsApp
             switch (chooseSeason)
             {
                 case Season.Summer:
-                    MessageBox.Show("Ура!Солнце!");
+                    MessageBox.Show("Ура! Солнце!");
                     break;
                 case Season.Autumn:
                     EnumPage.BackColor = ColorTranslator.FromHtml("#e29c45");
                     break;
                 case Season.Winter:
-                    MessageBox.Show("Бррр!Холодно!");
+                    MessageBox.Show("Бррр! Холодно!");
                     break;
                 case Season.Spring:
                     EnumPage.BackColor = ColorTranslator.FromHtml("#559c45");
