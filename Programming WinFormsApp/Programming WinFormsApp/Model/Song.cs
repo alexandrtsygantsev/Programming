@@ -24,5 +24,12 @@ namespace Programming_WinFormsApp.Model
                 duration = value;
             }
         }
+
+        public Song(string  title, string author, int duration)
+        {
+            Title = title;
+            Author = author;
+            Duration = duration;
+        }
     }
 }

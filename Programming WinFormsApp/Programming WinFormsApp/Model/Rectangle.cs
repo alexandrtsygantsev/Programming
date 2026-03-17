@@ -44,8 +44,6 @@ namespace Programming_WinFormsApp.Model
             }
         }
 
-        public Rectangle() { }
-
         public Rectangle(double length, double width, string color)
         {
             Length = length; 

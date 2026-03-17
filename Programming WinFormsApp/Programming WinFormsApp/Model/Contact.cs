@@ -8,9 +8,25 @@ namespace Programming_WinFormsApp.Model
 {
     internal class Contact
     {
-        private string surname;
-        private string name;
+        public string Surname {  get; set; }
+        public string Name {  get; set; }
         private int phone;
-        private string email;
+
+        public int Phone
+        {
+            get { return phone; }
+            set
+            {
+                if(value <= 0){ throw new ArgumentException("Значение не может быть отрицательным или равным нулю"); } 
+                phone = value;
+            }
+
+        }
+        public Contact(string surname, string name, int phone)
+        {
+            Surname = surname;
+            Name = name;
+            Phone = phone;
+        }
     }
 }
