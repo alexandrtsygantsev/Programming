@@ -22,7 +22,7 @@ namespace Programming_WinFormsApp.Model
             {
                 if (value < 0)
                 {
-                    throw new ArgumentException("Длина не может быть отрицательной.");
+                    throw new ArgumentException("Длина не может быть отрицательной");
                 }
                 length = value;
             }
@@ -38,7 +38,7 @@ namespace Programming_WinFormsApp.Model
             {
                 if (value < 0)
                 {
-                    throw new ArgumentException("Ширина не может быть отрицательной.");
+                    throw new ArgumentException("Ширина не может быть отрицательной");
                 }
                 width = value;
             }

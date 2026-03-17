@@ -8,8 +8,21 @@ namespace Programming_WinFormsApp.Model
 {
     internal class Song
     {
-        private string title;
-        private string author;
+        public string Title { get; set; }
+        public string Author { get; set; }
         private int duration;
+
+        public int Duration
+        {
+            get { return duration; }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("Длина песни не может быть отрицательной");
+                }
+                duration = value;
+            }
+        }
     }
 }
