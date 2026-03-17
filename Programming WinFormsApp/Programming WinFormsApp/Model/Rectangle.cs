@@ -10,9 +10,9 @@ namespace Programming_WinFormsApp.Model
     {
         private double length;
         private double width;
-        private string color { get; set; }
+        public string Color { get; set; }
 
-        public double Lenght
+        public double Length
         {
             get
             {
@@ -22,11 +22,12 @@ namespace Programming_WinFormsApp.Model
             {
                 if (value < 0)
                 {
-                    MessageBox.Show("Значение не может быть отрицательным");
+                    throw new ArgumentException("Длина не может быть отрицательной.");
                 }
                 length = value;
             }
         }
+
         public double Width
         {
             get
@@ -37,11 +38,19 @@ namespace Programming_WinFormsApp.Model
             {
                 if (value < 0)
                 {
-                    MessageBox.Show("Значение не может быть отрицательным");
+                    throw new ArgumentException("Ширина не может быть отрицательной.");
                 }
                 width = value;
             }
         }
 
+        public Rectangle() { }
+
+        public Rectangle(double length, double width, string color)
+        {
+            Length = length; 
+            Width = width;   
+            Color = color;   
+        }
     }
 }
