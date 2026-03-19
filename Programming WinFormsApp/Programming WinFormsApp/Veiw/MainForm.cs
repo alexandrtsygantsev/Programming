@@ -59,15 +59,27 @@ namespace Programming_WinFormsApp
                 string color = "color" + i;
 
                 _rectangles[i] = new Model.Rectangle(length, width, color);
-            }
 
-
-            for (int i = 0; i < _rectangles.Length; i++)
-            {
                 RecListBox.Items.Add($"Rectangle {i + 1}");
             }
         }
-       
+
+        private int FindRectangleWithMaxWidth(Model.Rectangle[] rectangles)
+        {
+            int maxWithIndex = 0;
+            double maxWith = rectangles[0].Width;
+
+            for (int i = 0; i < rectangles.Length; i++)
+            {
+                if (rectangles[i].Width > maxWith)
+                {
+                    rectangles[i].Width = maxWith;
+                    maxWithIndex = i;
+                }
+            }
+            return maxWithIndex;
+        }
+
 
         /// <summary>
         /// Ќаполнение списка с названи€ми перечислений.
@@ -84,8 +96,6 @@ namespace Programming_WinFormsApp
             string[] enumValues = Enum.GetNames(enumType);
 
             ValueListBox.Items.AddRange(enumValues);
-
-
         }
 
         /// <summary>
@@ -190,8 +200,8 @@ namespace Programming_WinFormsApp
             int selectedIndex = RecListBox.SelectedIndex;
             _currentRectangle = _rectangles[selectedIndex];
 
-            LenTextBox.Text = _currentRectangle.Width.ToString();
-            WithTextBox.Text = _currentRectangle.Length.ToString();
+            LenTextBox.Text = _currentRectangle.Length.ToString();
+            WithTextBox.Text = _currentRectangle.Width.ToString();
             ColorTextBox.Text = _currentRectangle.Color.ToString();
         }
 
@@ -238,6 +248,16 @@ namespace Programming_WinFormsApp
         private void ColorTextBox_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void FindButton_Click(object sender, EventArgs e)
+        {
+            int maxWidthIndex = FindRectangleWithMaxWidth(_rectangles);
+
+            if (maxWidthIndex >= 0 && maxWidthIndex < RecListBox.Items.Count)
+            {
+                RecListBox.SelectedIndex = maxWidthIndex;
+            }
         }
     }
 }

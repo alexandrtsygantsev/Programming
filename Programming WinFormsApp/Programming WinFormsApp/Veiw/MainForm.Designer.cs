@@ -283,6 +283,7 @@
             FindButton.TabIndex = 12;
             FindButton.Text = "Find";
             FindButton.UseVisualStyleBackColor = true;
+            FindButton.Click += FindButton_Click;
             // 
             // ColorTextBox
             // 
