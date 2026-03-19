@@ -12,8 +12,10 @@ namespace Programming_WinFormsApp
         private Dictionary<string, Type> enumTypes;
 
         private Model.Rectangle[] _rectangles;
-
         private Model.Rectangle _currentRectangle;
+
+        private Model.Film[] _film;
+        private Model.Film _currentFilm;
 
         public MainForm()
         {
@@ -43,20 +45,24 @@ namespace Programming_WinFormsApp
             RecListBox.SelectedIndexChanged += new EventHandler(RecListBox_SelectedIndexChanged);
 
             InitializeRectangles();
+            InitializeFilms();
         }
 
+        //================== Classes Functions ==================
 
         private void InitializeRectangles()
         {
             Random rand = new Random();
             _rectangles = new Model.Rectangle[5];
+            string[] colors = { "Orange", "White", "Pink", "Black", "Red", "Blue", "Yellow" };
 
 
             for (int i = 0; i < _rectangles.Length; i++)
             {
                 double length = rand.Next(1, 101);
                 double width = rand.Next(1, 101);
-                string color = "color" + i;
+                string color = colors[rand.Next(colors.Length)];
+                ;
 
                 _rectangles[i] = new Model.Rectangle(length, width, color);
 
@@ -73,13 +79,168 @@ namespace Programming_WinFormsApp
             {
                 if (rectangles[i].Width > maxWith)
                 {
-                    rectangles[i].Width = maxWith;
+                    maxWith = rectangles[i].Width;
                     maxWithIndex = i;
                 }
             }
             return maxWithIndex;
         }
 
+        private void RecListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedRec = RecListBox.SelectedItem.ToString();
+
+            // Обновляем текущий прямоугольник при выборе в списке
+            int selectedIndex = RecListBox.SelectedIndex;
+            _currentRectangle = _rectangles[selectedIndex];
+
+            LenTextBox.Text = _currentRectangle.Length.ToString();
+            WithTextBox.Text = _currentRectangle.Width.ToString();
+            ColorTextBox.Text = _currentRectangle.Color.ToString();
+        }
+
+        private void LenTextBox_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int length = Convert.ToInt32(LenTextBox.Text);
+
+                if (length <= 0)
+                {
+                    throw new ArgumentOutOfRangeException("Высота должна быть положительным числом");
+                }
+
+                _currentRectangle.Length = length;
+                LenTextBox.BackColor = Color.White;
+            }
+            catch (Exception)
+            {
+                LenTextBox.BackColor = Color.LightPink;
+            }
+        }
+
+        private void WithTextBox_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int width = Convert.ToInt32(WithTextBox.Text);
+
+                if (width <= 0)
+                {
+                    throw new ArgumentOutOfRangeException("Ширина должна быть положительным числом");
+                }
+
+                _currentRectangle.Width = width;
+                WithTextBox.BackColor = Color.White;
+            }
+            catch (Exception)
+            {
+                WithTextBox.BackColor = Color.LightPink;
+            }
+        }
+
+        private void ColorTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FindButton_Click(object sender, EventArgs e)
+        {
+            int maxWidthIndex = FindRectangleWithMaxWidth(_rectangles);
+
+            if (maxWidthIndex >= 0 && maxWidthIndex < RecListBox.Items.Count)
+            {
+                RecListBox.SelectedIndex = maxWidthIndex;
+            }
+        }
+
+
+
+
+
+        private void InitializeFilms()
+        {
+            Random rand = new Random();
+            _film = new Model.Film[5];
+            string[] names = { "Фильм 1", "Фильм 2", "Фильм 3", "Фильм 4", "Фильм 5", "Фильм 6", "Фильм 7" };
+            string[] genres = { "Драма", "Комедия", "Боевик", "Детектив", "Хоррор", "Фантастика" };
+
+
+
+            for (int i = 0; i < _rectangles.Length; i++)
+            {
+                string name = names[rand.Next(names.Length)];
+                int durationMin = rand.Next(60, 121);
+                int years = rand.Next(1901, 2027);
+                string genre = genres[rand.Next(genres.Length)];
+                double rating = Math.Round(rand.NextDouble() * 10, 1);
+                _film[i] = new Model.Film(name, durationMin, years, genre, rating);
+
+                FilmTextBox.Items.Add(names[i]);
+            }
+        }
+        private void FilmTextBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedFilm = FilmTextBox.SelectedItem.ToString();
+
+            // Обновляем текущий прямоугольник при выборе в списке
+            int selectedIndex = FilmTextBox.SelectedIndex;
+            _currentFilm = _film[selectedIndex];
+
+            DurTextBox.Text = _currentFilm.DurationMin.ToString();
+            YearTextBox.Text = _currentFilm.Years.ToString();
+            GenreTextBox.Text = _currentFilm.Genre.ToString();
+            RatTextBox.Text = _currentFilm.Rating.ToString();
+        }
+
+        private int FindWithRatingMax(Model.Film[] films)
+        {
+            int maxRatingIndex = 0;
+            double maxRating = films[0].Rating;
+
+            for (int i = 0; i < films.Length; i++)
+            {
+                if (films[i].Rating > maxRating)
+                {
+                    maxRating = films[i].Rating;
+                    maxRatingIndex = i;
+                }
+            }
+            return maxRatingIndex;
+        }
+
+        private void FindRutBut_Click(object sender, EventArgs e)
+        {
+            int maxRating = FindWithRatingMax(_film);
+
+            if (maxRating >= 0 && maxRating < FilmTextBox.Items.Count)
+            {
+                FilmTextBox.SelectedIndex = maxRating;
+            }
+        }
+
+        private void RatTextBox_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                double rating = Convert.ToDouble(RatTextBox.Text);
+
+                if (rating < 0)
+                {
+                    throw new ArgumentOutOfRangeException("Рейтинг не должен быть отрицательным");
+                }
+
+                _currentFilm.Rating = rating;
+                RatTextBox.BackColor = Color.White;
+            }
+            catch (Exception)
+            {
+                RatTextBox.BackColor = Color.LightPink;
+            }
+        }
+
+
+        //================== Enum Functions ==================
 
         /// <summary>
         /// Наполнение списка с названиями перечислений.
@@ -190,74 +351,6 @@ namespace Programming_WinFormsApp
             EnumPage.BackColor = Color.White;
         }
 
-        private void RecListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (RecListBox.SelectedItem == null) return;
 
-            string selectedRec = RecListBox.SelectedItem.ToString();
-
-            // Обновляем текущий прямоугольник при выборе в списке
-            int selectedIndex = RecListBox.SelectedIndex;
-            _currentRectangle = _rectangles[selectedIndex];
-
-            LenTextBox.Text = _currentRectangle.Length.ToString();
-            WithTextBox.Text = _currentRectangle.Width.ToString();
-            ColorTextBox.Text = _currentRectangle.Color.ToString();
-        }
-
-        private void LenTextBox_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                int length = Convert.ToInt32(LenTextBox.Text);
-
-                if (length <= 0)
-                {
-                    throw new ArgumentOutOfRangeException("Высота должна быть положительным числом");
-                }
-
-                _currentRectangle.Length = length;
-                LenTextBox.BackColor = Color.White;
-            }
-            catch (Exception)
-            {
-                LenTextBox.BackColor = Color.LightPink;
-            }
-        }
-
-        private void WithTextBox_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                int width = Convert.ToInt32(WithTextBox.Text);
-
-                if (width <= 0)
-                {
-                    throw new ArgumentOutOfRangeException("Ширина должна быть положительным числом");
-                }
-
-                _currentRectangle.Width = width;
-                WithTextBox.BackColor = Color.White;
-            }
-            catch (Exception)
-            {
-                WithTextBox.BackColor = Color.LightPink;
-            }
-        }
-
-        private void ColorTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void FindButton_Click(object sender, EventArgs e)
-        {
-            int maxWidthIndex = FindRectangleWithMaxWidth(_rectangles);
-
-            if (maxWidthIndex >= 0 && maxWidthIndex < RecListBox.Items.Count)
-            {
-                RecListBox.SelectedIndex = maxWidthIndex;
-            }
-        }
     }
 }
