@@ -48,14 +48,14 @@
             EnumListBox = new TabControl();
             ClassPage = new TabPage();
             groupBox1 = new GroupBox();
-            RecListBox = new ListBox();
-            LenTextBox = new TextBox();
-            LenLabel = new Label();
-            WithTextBox = new TextBox();
-            WidthLabel = new Label();
+            FindButton = new Button();
             ColorTextBox = new TextBox();
             ColorLabel = new Label();
-            FindButton = new Button();
+            WithTextBox = new TextBox();
+            WidthLabel = new Label();
+            LenTextBox = new TextBox();
+            LenLabel = new Label();
+            RecListBox = new ListBox();
             EnumPage.SuspendLayout();
             SeasHandleBox.SuspendLayout();
             WeekParsBox.SuspendLayout();
@@ -275,30 +275,31 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Rectangles";
             // 
-            // RecListBox
+            // FindButton
             // 
-            RecListBox.FormattingEnabled = true;
-            RecListBox.Location = new Point(6, 22);
-            RecListBox.Name = "RecListBox";
-            RecListBox.ScrollAlwaysVisible = true;
-            RecListBox.Size = new Size(161, 184);
-            RecListBox.TabIndex = 2;
+            FindButton.Location = new Point(184, 183);
+            FindButton.Name = "FindButton";
+            FindButton.Size = new Size(75, 23);
+            FindButton.TabIndex = 12;
+            FindButton.Text = "Find";
+            FindButton.UseVisualStyleBackColor = true;
             // 
-            // LenTextBox
+            // ColorTextBox
             // 
-            LenTextBox.Location = new Point(184, 40);
-            LenTextBox.Name = "LenTextBox";
-            LenTextBox.Size = new Size(100, 23);
-            LenTextBox.TabIndex = 7;
+            ColorTextBox.Location = new Point(184, 142);
+            ColorTextBox.Name = "ColorTextBox";
+            ColorTextBox.Size = new Size(100, 23);
+            ColorTextBox.TabIndex = 11;
+            ColorTextBox.TextChanged += ColorTextBox_TextChanged;
             // 
-            // LenLabel
+            // ColorLabel
             // 
-            LenLabel.AutoSize = true;
-            LenLabel.Location = new Point(184, 22);
-            LenLabel.Name = "LenLabel";
-            LenLabel.Size = new Size(44, 15);
-            LenLabel.TabIndex = 6;
-            LenLabel.Text = "Lenght";
+            ColorLabel.AutoSize = true;
+            ColorLabel.Location = new Point(184, 124);
+            ColorLabel.Name = "ColorLabel";
+            ColorLabel.Size = new Size(36, 15);
+            ColorLabel.TabIndex = 10;
+            ColorLabel.Text = "Color";
             // 
             // WithTextBox
             // 
@@ -316,32 +317,33 @@
             WidthLabel.Size = new Size(39, 15);
             WidthLabel.TabIndex = 8;
             WidthLabel.Text = "Width";
-            WidthLabel.Click += this.WidthLabel_Click;
             // 
-            // ColorTextBox
+            // LenTextBox
             // 
-            ColorTextBox.Location = new Point(184, 142);
-            ColorTextBox.Name = "ColorTextBox";
-            ColorTextBox.Size = new Size(100, 23);
-            ColorTextBox.TabIndex = 11;
+            LenTextBox.Location = new Point(184, 40);
+            LenTextBox.Name = "LenTextBox";
+            LenTextBox.Size = new Size(100, 23);
+            LenTextBox.TabIndex = 7;
+            LenTextBox.TextChanged += LenTextBox_TextChanged;
             // 
-            // ColorLabel
+            // LenLabel
             // 
-            ColorLabel.AutoSize = true;
-            ColorLabel.Location = new Point(184, 124);
-            ColorLabel.Name = "ColorLabel";
-            ColorLabel.Size = new Size(36, 15);
-            ColorLabel.TabIndex = 10;
-            ColorLabel.Text = "Color";
+            LenLabel.AutoSize = true;
+            LenLabel.Location = new Point(184, 22);
+            LenLabel.Name = "LenLabel";
+            LenLabel.Size = new Size(44, 15);
+            LenLabel.TabIndex = 6;
+            LenLabel.Text = "Lenght";
             // 
-            // FindButton
+            // RecListBox
             // 
-            FindButton.Location = new Point(184, 183);
-            FindButton.Name = "FindButton";
-            FindButton.Size = new Size(75, 23);
-            FindButton.TabIndex = 12;
-            FindButton.Text = "Find";
-            FindButton.UseVisualStyleBackColor = true;
+            RecListBox.FormattingEnabled = true;
+            RecListBox.Location = new Point(6, 22);
+            RecListBox.Name = "RecListBox";
+            RecListBox.ScrollAlwaysVisible = true;
+            RecListBox.Size = new Size(161, 184);
+            RecListBox.TabIndex = 2;
+            RecListBox.SelectedIndexChanged += RecListBox_SelectedIndexChanged;
             // 
             // MainForm
             // 
