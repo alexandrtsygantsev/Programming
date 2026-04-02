@@ -24,11 +24,10 @@ namespace Programming_WinFormsApp.Model
                     min = 0;
                     sec = 0;
                 }
-                if (value < 0)
+                if (Validator.AssertOnPositiveValue(value))
                 {
-                    throw new ArgumentException("Значение не может быть отрицательным");
+                    hour = value;
                 }
-                hour = value;
             }
             
         }
@@ -43,11 +42,10 @@ namespace Programming_WinFormsApp.Model
                     min = 0;
                     sec = 0;
                 }
-                if (value < 0)
+                if (Validator.AssertOnPositiveValue(value))
                 {
-                    throw new ArgumentException("Значение не может быть отрицательным");
+                    min = value;
                 }
-                min = value;
             }
         }
         public int Second
@@ -60,11 +58,10 @@ namespace Programming_WinFormsApp.Model
                     min += 1;
                     sec = 0;
                 }
-                if (value < 0)
+                if (Validator.AssertOnPositiveValue(value))
                 {
-                    throw new ArgumentException("Значение не может быть отрицательным");
+                    sec = value;
                 }
-                sec = value;
             }
         }
         public Time() { }

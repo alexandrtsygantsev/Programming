@@ -18,11 +18,10 @@ namespace Programming_WinFormsApp.Model
 
             set
             {
-                if (value <= 0)
+                if (Validator.AssertOnPositiveValue(value))
                 {
-                    throw new ArgumentException("Время полета не может быть отрицательным");
+                    timeMin = value;
                 }
-                timeMin = value;
             }
         }
         public Flight() { }

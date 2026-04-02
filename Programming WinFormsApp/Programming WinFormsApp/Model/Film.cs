@@ -35,11 +35,10 @@ namespace Programming_WinFormsApp.Model
             get { return durationMin; }
             set
             {
-                if (value <= 0)
+                if (Validator.AssertOnPositiveValue(value))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), "Длительность фильма не может быть отрицательнойили равной нулю");
+                    durationMin = value;
                 }
-                durationMin = value;
             }
         }
 

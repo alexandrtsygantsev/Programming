@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Programming_WinFormsApp.Model
 {
     internal class Contact
     {
-        public string Surname {  get; set; }
-        public string Name {  get; set; }
+        private string surname {  get; set; }
+        private string name {  get; set; }
         private int phone;
 
         public int Phone
@@ -17,10 +18,47 @@ namespace Programming_WinFormsApp.Model
             get { return phone; }
             set
             {
-                if(value <= 0){ throw new ArgumentException("Значение не может быть отрицательным или равным нулю"); } 
-                phone = value;
+                if (Validator.AssertOnPositiveValue(value))
+                {
+                    phone = value;
+                }
             }
 
+        }
+        private bool AssertStringContainsOnlyLetters(string value)
+        {
+            string alf = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+            if ((Regex.IsMatch(value, alf)) == false)
+            {
+                throw new ArgumentException("Некорректно введено значение");
+            }
+            else
+            {
+                return true;
+            }
+        }
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                if (AssertStringContainsOnlyLetters(value))
+                {
+                    name = value;
+                }
+            }
+        }
+
+        public string Surname
+        {
+            get { return surname; }
+            set
+            {
+                if (AssertStringContainsOnlyLetters(value))
+                {
+                    surname = value;
+                }
+            }
         }
         public Contact() { }
 

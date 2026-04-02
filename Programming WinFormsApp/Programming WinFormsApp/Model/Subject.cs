@@ -18,11 +18,10 @@ namespace Programming_WinFormsApp.Model
             get { return numHours; }
             set
             {
-                if(value < 0)
+                if (Validator.AssertOnPositiveValue(value))
                 {
-                    throw new ArgumentException("Часовой объем дисциплины не может быть меньше нуля");
+                    numHours = value;
                 }
-                numHours = value;
             }
         }
         public int Grade
@@ -30,11 +29,10 @@ namespace Programming_WinFormsApp.Model
             get { return grade; }
             set
             {
-                if (value < 0)
+                if (Validator.AssertOnPositiveValue(value))
                 {
-                    throw new ArgumentException("Часовой объем дисциплины не может быть меньше нуля");
+                    grade = value;
                 }
-                grade = value;
             }
         }
         public Subject() { }

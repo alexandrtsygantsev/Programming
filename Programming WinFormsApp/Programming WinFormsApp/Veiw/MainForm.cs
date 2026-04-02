@@ -2,7 +2,7 @@ using Programming_WinFormsApp.Model.Enums;
 using Programming_WinFormsApp.Model;
 
 using System;
-using System.Collections.Generic; // Добавьте этот using
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Programming_WinFormsApp
@@ -50,6 +50,9 @@ namespace Programming_WinFormsApp
 
         //================== Classes Functions ==================
 
+        /// <summary>
+        /// Присвоение значений прямоугольникам и вывод обще списка в RecListBox
+        /// </summary>
         private void InitializeRectangles()
         {
             Random rand = new Random();
@@ -70,6 +73,11 @@ namespace Programming_WinFormsApp
             }
         }
 
+        /// <summary>
+        /// Поиск прямоугольника с наибольшей шириной
+        /// </summary>
+        /// <param name="rectangles"></param>
+        /// <returns></returns>
         private int FindRectangleWithMaxWidth(Model.Rectangle[] rectangles)
         {
             int maxWithIndex = 0;
@@ -86,11 +94,15 @@ namespace Programming_WinFormsApp
             return maxWithIndex;
         }
 
+        /// <summary>
+        /// Показ значений выбранного прямоугольника в соответствующих полях приложения
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RecListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedRec = RecListBox.SelectedItem.ToString();
 
-            // Обновляем текущий прямоугольник при выборе в списке
             int selectedIndex = RecListBox.SelectedIndex;
             _currentRectangle = _rectangles[selectedIndex];
 
@@ -99,6 +111,11 @@ namespace Programming_WinFormsApp
             ColorTextBox.Text = _currentRectangle.Color.ToString();
         }
 
+        /// <summary>
+        /// Изменение цвета поля при не правлином вводе значения
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LenTextBox_TextChanged(object sender, EventArgs e)
         {
             try
@@ -119,6 +136,11 @@ namespace Programming_WinFormsApp
             }
         }
 
+        /// <summary>
+        /// Изменение цвета поля при не правлином вводе значения
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void WithTextBox_TextChanged(object sender, EventArgs e)
         {
             try
@@ -143,7 +165,11 @@ namespace Programming_WinFormsApp
         {
 
         }
-
+        /// <summary>
+        /// Работа кнопки поиска максимальной ширины
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FindButton_Click(object sender, EventArgs e)
         {
             int maxWidthIndex = FindRectangleWithMaxWidth(_rectangles);
@@ -157,7 +183,9 @@ namespace Programming_WinFormsApp
 
 
 
-
+        /// <summary>
+        /// Присвоение значений фильмам и вывод общего списка в FilmTextBox
+        /// </summary>
         private void InitializeFilms()
         {
             Random rand = new Random();
@@ -179,11 +207,16 @@ namespace Programming_WinFormsApp
                 FilmTextBox.Items.Add(names[i]);
             }
         }
+
+        /// <summary>
+        /// Показ значений выбранного фильма в соответствующих полях приложения
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FilmTextBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedFilm = FilmTextBox.SelectedItem.ToString();
 
-            // Обновляем текущий прямоугольник при выборе в списке
             int selectedIndex = FilmTextBox.SelectedIndex;
             _currentFilm = _film[selectedIndex];
 
@@ -193,6 +226,11 @@ namespace Programming_WinFormsApp
             RatTextBox.Text = _currentFilm.Rating.ToString();
         }
 
+        /// <summary>
+        /// Поиска фильма с наивысшим рейтингом
+        /// </summary>
+        /// <param name="films"></param>
+        /// <returns></returns>
         private int FindWithRatingMax(Model.Film[] films)
         {
             int maxRatingIndex = 0;
@@ -209,6 +247,11 @@ namespace Programming_WinFormsApp
             return maxRatingIndex;
         }
 
+        /// <summary>
+        /// Работа кнопки поиска наивысшего рейтинга
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FindRutBut_Click(object sender, EventArgs e)
         {
             int maxRating = FindWithRatingMax(_film);
@@ -219,6 +262,11 @@ namespace Programming_WinFormsApp
             }
         }
 
+        /// <summary>
+        /// Измнение цвета поля рейтинга при неправильном вводе значения
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RatTextBox_TextChanged(object sender, EventArgs e)
         {
             try

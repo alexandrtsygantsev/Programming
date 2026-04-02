@@ -356,9 +356,9 @@
             label1.ForeColor = SystemColors.ControlDarkDark;
             label1.Location = new Point(246, 182);
             label1.Name = "label1";
-            label1.Size = new Size(126, 24);
+            label1.Size = new Size(122, 24);
             label1.TabIndex = 12;
-            label1.Text = "Поиск фильма\r\nс наибольшим рейтингом";
+            label1.Text = "Поиск фильма\r\nс наивысшым рейтингом";
             // 
             // YearTextBox
             // 

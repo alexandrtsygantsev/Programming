@@ -17,11 +17,10 @@ namespace Programming_WinFormsApp.Model
             get { return duration; }
             set
             {
-                if (value < 0)
+                if (Validator.AssertOnPositiveValue(value))
                 {
-                    throw new ArgumentOutOfRangeException("Длина песни не может быть отрицательной");
+                    duration = value;
                 }
-                duration = value;
             }
         }
 
