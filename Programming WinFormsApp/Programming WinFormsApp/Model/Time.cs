@@ -24,7 +24,7 @@ namespace Programming_WinFormsApp.Model
                     min = 0;
                     sec = 0;
                 }
-                if (Validator.AssertOnPositiveValue(value))
+                if (Validator.AssertOnPositiveValue(value, nameof(Hour)))
                 {
                     hour = value;
                 }
@@ -42,7 +42,7 @@ namespace Programming_WinFormsApp.Model
                     min = 0;
                     sec = 0;
                 }
-                if (Validator.AssertOnPositiveValue(value))
+                if (Validator.AssertOnPositiveValue(value, nameof(Min)))
                 {
                     min = value;
                 }
@@ -58,7 +58,7 @@ namespace Programming_WinFormsApp.Model
                     min += 1;
                     sec = 0;
                 }
-                if (Validator.AssertOnPositiveValue(value))
+                if (Validator.AssertOnPositiveValue(value, nameof(Second)))
                 {
                     sec = value;
                 }

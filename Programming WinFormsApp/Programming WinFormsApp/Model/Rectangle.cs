@@ -11,6 +11,19 @@ namespace Programming_WinFormsApp.Model
         private double length;
         private double width;
         public string Color { get; set; }
+        public Point2D Center {  get; set; }
+        private static int _allRectanglesCount;
+        public static int AllRectanglesCount
+        {
+            get { return _allRectanglesCount; }
+        }
+        private readonly int _id;
+
+        public int Id
+        {
+            get { return _id; }
+        }
+
 
         public double Length
         {
@@ -20,7 +33,7 @@ namespace Programming_WinFormsApp.Model
             }
             set
             {
-                if (Validator.AssertOnPositiveValue(value))
+                if (Validator.AssertOnPositiveValue(value, nameof(Length)))
                 {
                     length = value;
                 }
@@ -35,18 +48,25 @@ namespace Programming_WinFormsApp.Model
             }
             set
             {
-                if (Validator.AssertOnPositiveValue(value))
+                if (Validator.AssertOnPositiveValue(value, nameof(Width)))
                 {
                     width = value;
                 }
             }
         }
-        public Rectangle() { }
-        public Rectangle(double length, double width, string color)
+        public Rectangle()
+        {
+            Center = new Point2D(0, 0);
+            _id = ++_allRectanglesCount;
+
+        }
+        public Rectangle(double length, double width, string color, double centerX, double centerY)
         {
             Length = length; 
             Width = width;   
-            Color = color;   
+            Color = color;
+            Center = new Point2D(centerX,centerY);
+            _id = ++_allRectanglesCount; 
         }
     }
 }

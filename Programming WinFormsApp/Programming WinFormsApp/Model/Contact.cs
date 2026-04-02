@@ -18,7 +18,7 @@ namespace Programming_WinFormsApp.Model
             get { return phone; }
             set
             {
-                if (Validator.AssertOnPositiveValue(value))
+                if (Validator.AssertOnPositiveValue(value, nameof(Phone)))
                 {
                     phone = value;
                 }

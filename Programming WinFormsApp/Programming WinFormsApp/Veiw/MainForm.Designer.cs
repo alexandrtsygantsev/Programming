@@ -61,6 +61,8 @@
             label5 = new Label();
             FilmTextBox = new ListBox();
             groupBox1 = new GroupBox();
+            CentLabel = new Label();
+            CenterTextBox = new TextBox();
             label2 = new Label();
             FindButton = new Button();
             ColorTextBox = new TextBox();
@@ -70,6 +72,8 @@
             LenTextBox = new TextBox();
             LenLabel = new Label();
             RecListBox = new ListBox();
+            IdTextBox = new TextBox();
+            IdLabel = new Label();
             EnumPage.SuspendLayout();
             SeasHandleBox.SuspendLayout();
             WeekParsBox.SuspendLayout();
@@ -407,6 +411,10 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(IdLabel);
+            groupBox1.Controls.Add(IdTextBox);
+            groupBox1.Controls.Add(CentLabel);
+            groupBox1.Controls.Add(CenterTextBox);
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(FindButton);
             groupBox1.Controls.Add(ColorTextBox);
@@ -422,6 +430,23 @@
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Rectangles";
+            // 
+            // CentLabel
+            // 
+            CentLabel.AutoSize = true;
+            CentLabel.Location = new Point(250, 22);
+            CentLabel.Name = "CentLabel";
+            CentLabel.Size = new Size(42, 15);
+            CentLabel.TabIndex = 14;
+            CentLabel.Text = "Center";
+            // 
+            // CenterTextBox
+            // 
+            CenterTextBox.Location = new Point(250, 40);
+            CenterTextBox.Name = "CenterTextBox";
+            CenterTextBox.ReadOnly = true;
+            CenterTextBox.Size = new Size(85, 23);
+            CenterTextBox.TabIndex = 13;
             // 
             // label2
             // 
@@ -506,6 +531,23 @@
             RecListBox.TabIndex = 2;
             RecListBox.SelectedIndexChanged += RecListBox_SelectedIndexChanged;
             // 
+            // IdTextBox
+            // 
+            IdTextBox.Location = new Point(250, 88);
+            IdTextBox.Name = "IdTextBox";
+            IdTextBox.ReadOnly = true;
+            IdTextBox.Size = new Size(85, 23);
+            IdTextBox.TabIndex = 15;
+            // 
+            // IdLabel
+            // 
+            IdLabel.AutoSize = true;
+            IdLabel.Location = new Point(250, 70);
+            IdLabel.Name = "IdLabel";
+            IdLabel.Size = new Size(17, 15);
+            IdLabel.TabIndex = 16;
+            IdLabel.Text = "Id";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -573,5 +615,9 @@
         private TextBox RatTextBox;
         private Label label4;
         private Label label6;
+        private Label CentLabel;
+        private TextBox CenterTextBox;
+        private Label IdLabel;
+        private TextBox IdTextBox;
     }
 }

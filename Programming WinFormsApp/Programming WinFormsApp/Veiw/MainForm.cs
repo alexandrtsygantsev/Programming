@@ -65,11 +65,14 @@ namespace Programming_WinFormsApp
                 double length = rand.Next(1, 101);
                 double width = rand.Next(1, 101);
                 string color = colors[rand.Next(colors.Length)];
-                ;
+                double centerX = Math.Round(rand.NextDouble() * 100, 1);
+                double centerY = Math.Round(rand.NextDouble() * 100, 1);
+                Point2D center = new Point2D(centerX,centerY);
 
-                _rectangles[i] = new Model.Rectangle(length, width, color);
+                _rectangles[i] = new Model.Rectangle(length, width, color, centerX, centerY);
 
                 RecListBox.Items.Add($"Rectangle {i + 1}");
+
             }
         }
 
@@ -109,6 +112,8 @@ namespace Programming_WinFormsApp
             LenTextBox.Text = _currentRectangle.Length.ToString();
             WithTextBox.Text = _currentRectangle.Width.ToString();
             ColorTextBox.Text = _currentRectangle.Color.ToString();
+            CenterTextBox.Text = $"{_currentRectangle.Center.X} ; {_currentRectangle.Center.Y}";
+            IdTextBox.Text = _currentRectangle.Id.ToString();
         }
 
         /// <summary>

@@ -18,7 +18,7 @@ namespace Programming_WinFormsApp.Model
 
             set
             {
-                if (Validator.AssertOnPositiveValue(value))
+                if (Validator.AssertOnPositiveValue(value, nameof(TimeMin)))
                 {
                     timeMin = value;
                 }

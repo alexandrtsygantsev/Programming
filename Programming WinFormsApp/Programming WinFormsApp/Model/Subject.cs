@@ -18,7 +18,7 @@ namespace Programming_WinFormsApp.Model
             get { return numHours; }
             set
             {
-                if (Validator.AssertOnPositiveValue(value))
+                if (Validator.AssertOnPositiveValue(value, nameof(NumHours)))
                 {
                     numHours = value;
                 }
@@ -29,7 +29,7 @@ namespace Programming_WinFormsApp.Model
             get { return grade; }
             set
             {
-                if (Validator.AssertOnPositiveValue(value))
+                if (Validator.AssertOnPositiveValue(value, nameof(Grade)))
                 {
                     grade = value;
                 }

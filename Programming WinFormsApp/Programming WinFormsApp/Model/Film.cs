@@ -12,7 +12,7 @@ namespace Programming_WinFormsApp.Model
         private string name;
         private int durationMin;
         private int years;
-        private string genre;
+        public string Genre {  get; set; }
         private double rating;
 
         // Свойство для названия (автосвойство - без ограничений)
@@ -35,7 +35,7 @@ namespace Programming_WinFormsApp.Model
             get { return durationMin; }
             set
             {
-                if (Validator.AssertOnPositiveValue(value))
+                if (Validator.AssertOnPositiveValue(value, nameof(DurationMin)))
                 {
                     durationMin = value;
                 }
@@ -47,27 +47,11 @@ namespace Programming_WinFormsApp.Model
             get { return years; }
             set
             {
-                if (value >= 1900 && value <= 2026)
+                
+                if(Validator.AssertValueInRange(value,1900,2026, "Years"))
                 {
                     years = value;
                 }
-                else
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value), "Фильм должен быть от 1900 до 2026 года выпуска");
-                }
-            }
-        }
-
-        public string Genre
-        {
-            get { return genre; }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentException("Жанр не может быть пустым");
-                }
-                genre = value;
             }
         }
 
@@ -76,13 +60,9 @@ namespace Programming_WinFormsApp.Model
             get { return rating; }
             set
             {
-                if (value >= 0 && value <= 10)
+                if (Validator.AssertValueInRange(value, 0, 10, "Rating"))
                 {
                     rating = value;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value), "Рейтинг должен быть от 0 до 10");
                 }
             }
         }

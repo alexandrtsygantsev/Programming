@@ -17,7 +17,7 @@ namespace Programming_WinFormsApp.Model
             get { return duration; }
             set
             {
-                if (Validator.AssertOnPositiveValue(value))
+                if (Validator.AssertOnPositiveValue(value, nameof(Duration)))
                 {
                     duration = value;
                 }
