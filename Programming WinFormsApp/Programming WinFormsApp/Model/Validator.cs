@@ -10,6 +10,15 @@ namespace Programming_WinFormsApp.Model
     {
         public static bool AssertOnPositiveValue(int value)
         {
+            if (value < 0)
+            {
+                throw new ArgumentException("value");
+                return false;
+            }
+            return true;
+        }
+        public static bool AssertOnPositiveValue(double value)
+        {
             if (value < 0.0)
             {
                 throw new ArgumentException("value");

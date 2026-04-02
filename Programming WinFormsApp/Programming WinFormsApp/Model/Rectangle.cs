@@ -20,11 +20,10 @@ namespace Programming_WinFormsApp.Model
             }
             set
             {
-                if (value < 0)
+                if (Validator.AssertOnPositiveValue(value))
                 {
-                    throw new ArgumentException("Длина не может быть отрицательной");
+                    length = value;
                 }
-                length = value;
             }
         }
 
@@ -36,11 +35,10 @@ namespace Programming_WinFormsApp.Model
             }
             set
             {
-                if (value < 0)
+                if (Validator.AssertOnPositiveValue(value))
                 {
-                    throw new ArgumentException("Ширина не может быть отрицательной");
+                    width = value;
                 }
-                width = value;
             }
         }
         public Rectangle() { }

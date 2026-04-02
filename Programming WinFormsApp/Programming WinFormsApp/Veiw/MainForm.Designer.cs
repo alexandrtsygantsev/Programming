@@ -337,6 +337,7 @@
             // 
             GenreTextBox.Location = new Point(155, 136);
             GenreTextBox.Name = "GenreTextBox";
+            GenreTextBox.ReadOnly = true;
             GenreTextBox.Size = new Size(85, 23);
             GenreTextBox.TabIndex = 14;
             // 
@@ -364,6 +365,7 @@
             // 
             YearTextBox.Location = new Point(155, 88);
             YearTextBox.Name = "YearTextBox";
+            YearTextBox.ReadOnly = true;
             YearTextBox.Size = new Size(85, 23);
             YearTextBox.TabIndex = 9;
             // 
@@ -380,6 +382,7 @@
             // 
             DurTextBox.Location = new Point(155, 40);
             DurTextBox.Name = "DurTextBox";
+            DurTextBox.ReadOnly = true;
             DurTextBox.Size = new Size(85, 23);
             DurTextBox.TabIndex = 7;
             // 
@@ -445,6 +448,7 @@
             // 
             ColorTextBox.Location = new Point(155, 136);
             ColorTextBox.Name = "ColorTextBox";
+            ColorTextBox.ReadOnly = true;
             ColorTextBox.Size = new Size(85, 23);
             ColorTextBox.TabIndex = 11;
             ColorTextBox.TextChanged += ColorTextBox_TextChanged;
