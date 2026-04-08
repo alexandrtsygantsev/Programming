@@ -1,9 +1,9 @@
-using Programming_WinFormsApp.Model.Enums;
 using Programming_WinFormsApp.Model;
-
+using Programming_WinFormsApp.Model.Enums;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace Programming_WinFormsApp
 {
@@ -22,6 +22,11 @@ namespace Programming_WinFormsApp
 
 
             InitializeComponent();
+
+            this.ButtPlus.Click += ButtPlus_Click;
+            this.ButtMinus.Click += ButtMinus_Click;
+            this.RectanListBox.SelectedIndexChanged += RectanListBox_SelectedIndexChanged;
+
 
 
             SeasonDropList.DataSource = Enum.GetValues(typeof(Season));
@@ -73,7 +78,9 @@ namespace Programming_WinFormsApp
 
                 RecListBox.Items.Add($"Rectangle {i + 1}");
 
+
             }
+            //SyncAllLists();
         }
 
         /// <summary>
@@ -104,8 +111,6 @@ namespace Programming_WinFormsApp
         /// <param name="e"></param>
         private void RecListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string selectedRec = RecListBox.SelectedItem.ToString();
-
             int selectedIndex = RecListBox.SelectedIndex;
             _currentRectangle = _rectangles[selectedIndex];
 
@@ -115,6 +120,124 @@ namespace Programming_WinFormsApp
             CenterTextBox.Text = $"{_currentRectangle.Center.X} ; {_currentRectangle.Center.Y}";
             IdTextBox.Text = _currentRectangle.Id.ToString();
         }
+
+        private void RectanListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int selectedIndex = RectanListBox.SelectedIndex;
+
+            _currentRectangle = _rectangles[selectedIndex];
+
+            HeightBox.Text = _currentRectangle.Length.ToString();
+            WidthBox.Text = _currentRectangle.Width.ToString();
+            XBox.Text = _currentRectangle.Center.X.ToString();
+            YBox.Text = _currentRectangle.Center.Y.ToString();
+            IdBox.Text = _currentRectangle.Id.ToString();
+        }
+
+        /// <summary>
+        /// Добавление нового прямоугольника (в оба списка)
+        /// </summary>
+        private void AddNewRectangle()
+        {
+            Random rand = new Random();
+            string[] colors = { "Orange", "White", "Pink", "Black", "Red", "Blue", "Yellow" };
+
+            // Генерируем случайные параметры для нового прямоугольника
+            double length = rand.Next(1, 101);
+            double width = rand.Next(1, 101);
+            string color = colors[rand.Next(colors.Length)];
+            double centerX = Math.Round(rand.NextDouble() * 100, 1);
+            double centerY = Math.Round(rand.NextDouble() * 100, 1);
+
+            // Создаем новый массив с увеличенным размером
+            Model.Rectangle[] newRectangles = new Model.Rectangle[_rectangles.Length + 1];
+
+            // Копируем существующие прямоугольники
+            for (int i = 0; i < _rectangles.Length; i++)
+            {
+                newRectangles[i] = _rectangles[i];
+            }
+
+            // Добавляем новый прямоугольник
+            newRectangles[_rectangles.Length] = new Model.Rectangle(length, width, color, centerX, centerY);
+
+            // Заменяем старый массив новым
+            _rectangles = newRectangles;
+
+            // Добавляем элемент ТОЛЬКО в НОВЫЙ ListBox (RectanListBox)
+            RectanListBox.Items.Add($"{_rectangles.Length}: (X= {centerX}; Y= {centerY}; W= {width}; H= {length})");
+
+            // Автоматически выбираем новый прямоугольник в новом списке
+            if (RectanListBox.Items.Count > 0)
+            {
+                RectanListBox.SelectedIndex = RectanListBox.Items.Count - 1;
+            }
+
+            // RecListBox НЕ ТРОГАЕМ - в нём остаются только первые 5 прямоугольников
+        }
+
+
+        private void ButtPlus_Click(object sender, EventArgs e)
+        {
+            AddNewRectangle();
+        }
+        private void ButtMinus_Click(object sender, EventArgs e)
+        {
+            int selectedIndex = RectanListBox.SelectedIndex;
+
+            if (selectedIndex < 5)
+            {
+                MessageBox.Show("Нельзя удалять исходные прямоугольники!");
+                return;
+            }
+
+            // ВРЕМЕННО ОТКЛЮЧАЕМ СОБЫТИЕ
+            RectanListBox.SelectedIndexChanged -= RectanListBox_SelectedIndexChanged;
+
+            try
+            {
+                // Удаляем из массива
+                Model.Rectangle[] newRectangles = new Model.Rectangle[_rectangles.Length - 1];
+                int newIndex = 0;
+
+                for (int i = 0; i < _rectangles.Length; i++)
+                {
+                    if (i != selectedIndex)
+                    {
+                        newRectangles[newIndex] = _rectangles[i];
+                        newIndex++;
+                    }
+                }
+
+                _rectangles = newRectangles;
+
+                // Удаляем из списка
+                RectanListBox.Items.RemoveAt(selectedIndex);
+
+                // Очищаем поля
+                HeightBox.Text = "";
+                WidthBox.Text = "";
+                XBox.Text = "";
+                YBox.Text = "";
+                IdBox.Text = "";
+
+                _currentRectangle = null;
+
+                // Выбираем новый элемент
+                if (RectanListBox.Items.Count > 0)
+                {
+                    int newSelectedIndex = selectedIndex - 1;
+                    if (newSelectedIndex < 0) newSelectedIndex = 0;
+                    RectanListBox.SelectedIndex = newSelectedIndex;
+                }
+            }
+            finally
+            {
+                // ВКЛЮЧАЕМ СОБЫТИЕ ОБРАТНО
+                RectanListBox.SelectedIndexChanged += RectanListBox_SelectedIndexChanged;
+            }
+        }
+
 
         /// <summary>
         /// Изменение цвета поля при не правлином вводе значения
@@ -403,6 +526,7 @@ namespace Programming_WinFormsApp
         {
             EnumPage.BackColor = Color.White;
         }
+
 
 
     }
