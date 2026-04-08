@@ -26,6 +26,8 @@ namespace Programming_WinFormsApp
             this.ButtPlus.Click += ButtPlus_Click;
             this.ButtMinus.Click += ButtMinus_Click;
             this.RectanListBox.SelectedIndexChanged += RectanListBox_SelectedIndexChanged;
+            this.YBox.TextChanged += YBox_TextChanged;
+            this.XBox.TextChanged += XBox_TextChanged;
 
 
 
@@ -77,6 +79,7 @@ namespace Programming_WinFormsApp
                 _rectangles[i] = new Model.Rectangle(length, width, color, centerX, centerY);
 
                 RecListBox.Items.Add($"Rectangle {i + 1}");
+                RectanListBox.Items.Add($"{i + 1}: (X={centerX}; Y={centerY}; W={width}; H={length})");
 
 
             }
@@ -123,8 +126,9 @@ namespace Programming_WinFormsApp
 
         private void RectanListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int selectedIndex = RectanListBox.SelectedIndex;
+            string selectedRect = RectanListBox.SelectedItem.ToString();
 
+            int selectedIndex = RectanListBox.SelectedIndex;
             _currentRectangle = _rectangles[selectedIndex];
 
             HeightBox.Text = _currentRectangle.Length.ToString();
@@ -165,7 +169,7 @@ namespace Programming_WinFormsApp
             _rectangles = newRectangles;
 
             // Добавляем элемент ТОЛЬКО в НОВЫЙ ListBox (RectanListBox)
-            RectanListBox.Items.Add($"{_rectangles.Length}: (X= {centerX}; Y= {centerY}; W= {width}; H= {length})");
+            RectanListBox.Items.Add($"{_rectangles.Length}: (X={centerX}; Y={centerY}; W={width}; H={length})");
 
             // Автоматически выбираем новый прямоугольник в новом списке
             if (RectanListBox.Items.Count > 0)
@@ -183,6 +187,7 @@ namespace Programming_WinFormsApp
         }
         private void ButtMinus_Click(object sender, EventArgs e)
         {
+
             int selectedIndex = RectanListBox.SelectedIndex;
 
             if (selectedIndex < 5)
@@ -263,6 +268,45 @@ namespace Programming_WinFormsApp
                 LenTextBox.BackColor = Color.LightPink;
             }
         }
+
+        private void XBox_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(XBox.Text))
+            {
+                XBox.BackColor = Color.White;
+                return;
+            }
+
+            if (double.TryParse(XBox.Text, out double x) && x > 0)
+            {
+                _currentRectangle.Center = new Point2D(x, _currentRectangle.Center.Y);
+                XBox.BackColor = Color.White;
+            }
+            else
+            {
+                XBox.BackColor = Color.LightPink;
+            }
+        }
+
+        private void YBox_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(YBox.Text))
+            {
+                YBox.BackColor = Color.White;
+                return;
+            }
+
+            if (double.TryParse(YBox.Text, out double y) && y > 0)
+            {
+                _currentRectangle.Center = new Point2D(_currentRectangle.Center.X, y);
+                YBox.BackColor = Color.White;
+            }
+            else
+            {
+                YBox.BackColor = Color.LightPink;
+            }
+        }
+
 
         /// <summary>
         /// Изменение цвета поля при не правлином вводе значения

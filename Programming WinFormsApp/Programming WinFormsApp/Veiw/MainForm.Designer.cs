@@ -740,6 +740,7 @@
             IdBox.Location = new Point(94, 351);
             IdBox.Margin = new Padding(3, 4, 3, 4);
             IdBox.Name = "IdBox";
+            IdBox.ReadOnly = true;
             IdBox.Size = new Size(131, 27);
             IdBox.TabIndex = 18;
             // 
