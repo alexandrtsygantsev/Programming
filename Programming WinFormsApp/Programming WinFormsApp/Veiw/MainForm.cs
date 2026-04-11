@@ -1,5 +1,5 @@
-using Programming_WinFormsApp.Model;
 using Programming_WinFormsApp.Model.Enums;
+using Programming_WinFormsApp.Model.Geometry;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -11,10 +11,10 @@ namespace Programming_WinFormsApp
     {
         private Dictionary<string, Type> enumTypes;
 
-        private Model.Rectangle[] _rectangles; 
-        private Model.Rectangle[] _rectanglesTab; 
-        private Model.Rectangle _currentRectangle;
-        private Model.Rectangle _currentRectangleTab; 
+        private Model.Geometry.Rectangle[] _rectangles; 
+        private Model.Geometry.Rectangle[] _rectanglesTab; 
+        private Model.Geometry.Rectangle _currentRectangle;
+        private Model.Geometry.Rectangle _currentRectangleTab; 
 
         private Model.Film[] _film;
         private Model.Film _currentFilm;
@@ -97,7 +97,7 @@ namespace Programming_WinFormsApp
         private void InitializeRectangles()
         {
             Random rand = new Random();
-            _rectangles = new Model.Rectangle[5];
+            _rectangles = new Model.Geometry.Rectangle[5];
             string[] colors = { "Orange", "White", "Pink", "Black", "Red", "Blue", "Yellow" };
 
             for (int i = 0; i < _rectangles.Length; i++)
@@ -108,7 +108,7 @@ namespace Programming_WinFormsApp
                 double centerX = Math.Round(rand.NextDouble() * 100, 1);
                 double centerY = Math.Round(rand.NextDouble() * 100, 1);
 
-                _rectangles[i] = new Model.Rectangle(length, width, color, centerX, centerY);
+                _rectangles[i] = new Model.Geometry.Rectangle(length, width, color, centerX, centerY);
 
                 RecListBox.Items.Add($"Rectangle {i + 1}");
             }
@@ -120,9 +120,9 @@ namespace Programming_WinFormsApp
         private void InitializeRectanglesTab()
         {
             // Сбрасываем счетчик для вкладки Rectangles
-            Model.Rectangle.ResetRectanglesTabCount();
+            Model.Geometry.Rectangle.ResetRectanglesTabCount();
 
-            _rectanglesTab = new Model.Rectangle[0];
+            _rectanglesTab = new Model.Geometry.Rectangle[0];
 
             RectanListBox.Items.Clear();
 
@@ -147,7 +147,7 @@ namespace Programming_WinFormsApp
         /// </summary>
         /// <param name="rectangles"></param>
         /// <returns></returns>
-        private int FindRectangleWithMaxWidth(Model.Rectangle[] rectangles)
+        private int FindRectangleWithMaxWidth(Model.Geometry.Rectangle[] rectangles)
         {
             int maxWithIndex = 0;
             double maxWith = rectangles[0].Width;
@@ -323,14 +323,14 @@ namespace Programming_WinFormsApp
             double centerX = Math.Round(rand.NextDouble() * 350, 1);
             double centerY = Math.Round(rand.NextDouble() * 350, 1);
 
-            Model.Rectangle[] newRectangles = new Model.Rectangle[_rectanglesTab.Length + 1];
+            Model.Geometry.Rectangle[] newRectangles = new Model.Geometry.Rectangle[_rectanglesTab.Length + 1];
 
             for (int i = 0; i < _rectanglesTab.Length; i++)
             {
                 newRectangles[i] = _rectanglesTab[i];
             }
 
-            newRectangles[_rectanglesTab.Length] = new Model.Rectangle(length, width, color, centerX, centerY, true);
+            newRectangles[_rectanglesTab.Length] = new Model.Geometry.Rectangle(length, width, color, centerX, centerY, true);
 
             _rectanglesTab = newRectangles;
 
@@ -371,7 +371,7 @@ namespace Programming_WinFormsApp
                 }
 
                 // Удаляем из массива
-                Model.Rectangle[] newRectangles = new Model.Rectangle[_rectanglesTab.Length - 1];
+                Model.Geometry.Rectangle[] newRectangles = new Model.Geometry.Rectangle[_rectanglesTab.Length - 1];
                 int newIndex = 0;
 
                 for (int i = 0; i < _rectanglesTab.Length; i++)

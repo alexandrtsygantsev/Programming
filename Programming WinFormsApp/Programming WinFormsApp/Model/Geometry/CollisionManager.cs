@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Programming_WinFormsApp.Model
+namespace Programming_WinFormsApp.Model.Geometry
 {
     internal class CollisionManager
     {
@@ -23,7 +23,7 @@ namespace Programming_WinFormsApp.Model
             double deltaX = Math.Abs(centerX1 - centerX2);
             double deltaY = Math.Abs(centerY1 - centerY2);
 
-            if (deltaX < (halfWidth1 + halfWidth2) && deltaY < (halfHeight1 + halfHeight2))
+            if (deltaX < halfWidth1 + halfWidth2 && deltaY < halfHeight1 + halfHeight2)
             {
                 return true; 
             }
@@ -39,7 +39,7 @@ namespace Programming_WinFormsApp.Model
 
             double radius = ring1.OutRadius + ring2.OutRadius;
 
-            return (distance < radius);
+            return distance < radius;
         }
     }
 }

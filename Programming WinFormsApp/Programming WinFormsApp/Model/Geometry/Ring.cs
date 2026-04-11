@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Programming_WinFormsApp.Model
+namespace Programming_WinFormsApp.Model.Geometry
 {
     internal class Ring
     {
@@ -17,7 +17,7 @@ namespace Programming_WinFormsApp.Model
             get {  return outRadius; }
             set
             {
-                if ((Validator.AssertOnPositiveValue(value,nameof(outRadius))) && value > InnRadius)
+                if (Validator.AssertOnPositiveValue(value,nameof(outRadius)) && value > InnRadius)
                 {
                     outRadius = value;
                 }
@@ -32,7 +32,7 @@ namespace Programming_WinFormsApp.Model
             get { return innRadius; }
             set
             {
-                if ((Validator.AssertOnPositiveValue(value, nameof(innRadius))) && value < OutRadius)
+                if (Validator.AssertOnPositiveValue(value, nameof(innRadius)) && value < OutRadius)
                 {
                     innRadius = value;
                 }
