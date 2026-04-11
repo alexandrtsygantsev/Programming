@@ -17,6 +17,9 @@ namespace Programming_WinFormsApp
         private Model.Film[] _film;
         private Model.Film _currentFilm;
 
+        private List<Panel> _rectanglePanels;
+
+
         public MainForm()
         {
 
@@ -139,9 +142,9 @@ namespace Programming_WinFormsApp
         }
 
         /// <summary>
-        /// Добавление нового прямоугольника (в оба списка)
+        /// Добавление нового прямоугольника
         /// </summary>
-        private void AddNewRectangle()
+        private void ButtPlus_Click(object sender, EventArgs e)
         {
             Random rand = new Random();
             string[] colors = { "Orange", "White", "Pink", "Black", "Red", "Blue", "Yellow" };
@@ -168,22 +171,93 @@ namespace Programming_WinFormsApp
             // Заменяем старый массив новым
             _rectangles = newRectangles;
 
-            // Добавляем элемент ТОЛЬКО в НОВЫЙ ListBox (RectanListBox)
+            // Добавляем элемент в ListBox
             RectanListBox.Items.Add($"{_rectangles.Length}: (X={centerX}; Y={centerY}; W={width}; H={length})");
 
-            // Автоматически выбираем новый прямоугольник в новом списке
+            // Автоматически выбираем новый прямоугольник
             if (RectanListBox.Items.Count > 0)
             {
                 RectanListBox.SelectedIndex = RectanListBox.Items.Count - 1;
             }
 
-            // RecListBox НЕ ТРОГАЕМ - в нём остаются только первые 5 прямоугольников
-        }
+            // ========== СОЗДАНИЕ PANEL В ПРЕДЕЛАХ КАНВЫ ==========
 
+            // Определяем область канвы (где можно рисовать прямоугольники)
+            // Например, область справа от ListBox'а
+            int canvasX = RectanListBox.Right + 20;  // Начало канвы по X (правее ListBox'а)
+            int canvasY = 50;                         // Начало канвы по Y
+            int canvasWidth = this.ClientSize.Width - canvasX - 20;  // Ширина канвы
+            int canvasHeight = this.ClientSize.Height - canvasY - 20; // Высота канвы
 
-        private void ButtPlus_Click(object sender, EventArgs e)
-        {
-            AddNewRectangle();
+            // Если канва еще не определена (форма только загружена), используем значения по умолчанию
+            if (canvasWidth <= 0) canvasWidth = 500;
+            if (canvasHeight <= 0) canvasHeight = 400;
+
+            // Масштабируем координаты (0-100) в границы канвы
+            int panelX = canvasX + (int)((centerX / 100.0) * (canvasWidth - 100)); // -100 чтобы не выходить за границы
+            int panelY = canvasY + (int)((centerY / 100.0) * (canvasHeight - 100));
+
+            // Размеры панели (с ограничением, чтобы не выходила за границы канвы)
+            int panelWidth = Math.Min((int)width, canvasWidth - 50);
+            int panelHeight = Math.Min((int)length, canvasHeight - 50);
+
+            // Гарантируем минимальный размер
+            panelWidth = Math.Max(20, panelWidth);
+            panelHeight = Math.Max(20, panelHeight);
+
+            // Корректируем позицию, чтобы панель не выходила за границы канвы
+            if (panelX + panelWidth > canvasX + canvasWidth)
+                panelX = canvasX + canvasWidth - panelWidth;
+            if (panelY + panelHeight > canvasY + canvasHeight)
+                panelY = canvasY + canvasHeight - panelHeight;
+            if (panelX < canvasX)
+                panelX = canvasX;
+            if (panelY < canvasY)
+                panelY = canvasY;
+
+            // Создаем новую панель
+            Panel newPanel = new Panel();
+            newPanel.Location = new System.Drawing.Point(panelX, panelY);
+            newPanel.Width = panelWidth;
+            newPanel.Height = panelHeight;
+            newPanel.BackColor = Color.FromArgb(127, 127, 255, 127);
+            newPanel.BorderStyle = BorderStyle.FixedSingle;
+
+            // Добавляем подпись на панель
+            Label panelLabel = new Label
+            {
+                Text = $"{_rectangles.Length}",
+                Location = new System.Drawing.Point(3, 3),
+                AutoSize = true,
+                BackColor = Color.Transparent,
+                Font = new Font("Arial", 7, FontStyle.Bold)
+            };
+            newPanel.Controls.Add(panelLabel);
+
+            // Добавляем обработчик для перемещения (опционально)
+            newPanel.MouseDown += (s, ev) =>
+            {
+                if (ev.Button == MouseButtons.Left)
+                {
+                    // Можно добавить логику перемещения панели
+                    newPanel.DoDragDrop(newPanel, DragDropEffects.Move);
+                }
+            };
+
+            // Инициализируем список если null
+            if (_rectanglePanels == null)
+            {
+                _rectanglePanels = new List<Panel>();
+            }
+
+            // Добавляем панель в список
+            _rectanglePanels.Add(newPanel);
+
+            // Добавляем панель на форму
+            this.Controls.Add(newPanel);
+
+            // Делаем панель видимой
+            newPanel.BringToFront();
         }
         private void ButtMinus_Click(object sender, EventArgs e)
         {
