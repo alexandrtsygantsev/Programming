@@ -81,8 +81,6 @@ namespace Programming_WinFormsApp
                 _rectangles[i] = new Model.Rectangle(length, width, color, centerX, centerY);
 
                 RecListBox.Items.Add($"Rectangle {i + 1}");
-                RectanListBox.Items.Add($"{i + 1}: (X={centerX}; Y={centerY}; W={width}; H={length})");
-
 
             }
             //SyncAllLists();
@@ -93,6 +91,9 @@ namespace Programming_WinFormsApp
         /// </summary>
         private void InitializeRectanglesTab()
         {
+            // Сбрасываем счетчик для вкладки Rectangles
+            Model.Rectangle.ResetRectanglesTabCount();
+
             // Создаем пустой массив для вкладки Rectangles
             _rectanglesTab = new Model.Rectangle[0];
 
@@ -245,8 +246,8 @@ namespace Programming_WinFormsApp
                 newRectangles[i] = _rectanglesTab[i];
             }
 
-            // Добавляем новый прямоугольник
-            newRectangles[_rectanglesTab.Length] = new Model.Rectangle(length, width, color, centerX, centerY);
+            // Добавляем новый прямоугольник, используя конструктор с флагом true для вкладки Rectangles
+            newRectangles[_rectanglesTab.Length] = new Model.Rectangle(length, width, color, centerX, centerY, true);
 
             // Заменяем старый массив новым
             _rectanglesTab = newRectangles;
