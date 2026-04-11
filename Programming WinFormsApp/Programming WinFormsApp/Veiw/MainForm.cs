@@ -11,10 +11,10 @@ namespace Programming_WinFormsApp
     {
         private Dictionary<string, Type> enumTypes;
 
-        private Model.Rectangle[] _rectangles;  // для первой вкладки (RecListBox)
-        private Model.Rectangle[] _rectanglesTab;  // для вкладки Rectangles (RectanListBox)
+        private Model.Rectangle[] _rectangles; 
+        private Model.Rectangle[] _rectanglesTab; 
         private Model.Rectangle _currentRectangle;
-        private Model.Rectangle _currentRectangleTab;  // для вкладки Rectangles
+        private Model.Rectangle _currentRectangleTab; 
 
         private Model.Film[] _film;
         private Model.Film _currentFilm;
@@ -31,6 +31,9 @@ namespace Programming_WinFormsApp
             this.RectanListBox.SelectedIndexChanged += RectanListBox_SelectedIndexChanged;
             this.YBox.TextChanged += YBox_TextChanged;
             this.XBox.TextChanged += XBox_TextChanged;
+
+            this.WidthBox.TextChanged += WidthBox_TextChanged;
+            this.HeightBox.TextChanged += HeightBox_TextChanged;
 
             SeasonDropList.DataSource = Enum.GetValues(typeof(Season));
 
@@ -52,12 +55,41 @@ namespace Programming_WinFormsApp
             ValueListBox.SelectedIndexChanged += new EventHandler(ValueListBox_SelectedIndexChanged);
             RecListBox.SelectedIndexChanged += new EventHandler(RecListBox_SelectedIndexChanged);
 
-            InitializeRectangles();      // для первой вкладки (с 5 прямоугольниками)
-            InitializeRectanglesTab();   // для вкладки Rectangles (пустой массив)
+            InitializeRectangles();      
+            InitializeRectanglesTab();   
             InitializeFilms();
         }
 
         //================== Classes Functions ==================
+
+        /// <summary>
+        /// Поиск пересекающихся прямоугольников и изменение их цвета
+        /// </summary>
+        private void FindCollisions()
+        {
+            foreach (var panel in _rectanglePanels)
+            {
+                panel.BackColor = Color.FromArgb(127, 127, 255, 127);
+            }
+
+            for (int i = 0; i < _rectanglesTab.Length; i++)
+            {
+                for (int j = 0; j < _rectanglesTab.Length; j++)
+                {
+                    if (i == j) continue;
+
+                    if (CollisionManager.IsCollision(_rectanglesTab[i], _rectanglesTab[j]))
+                    {
+                        if (i < _rectanglePanels.Count)
+                            _rectanglePanels[i].BackColor = Color.FromArgb(127, 255, 127, 127); 
+
+                        if (j < _rectanglePanels.Count)
+                            _rectanglePanels[j].BackColor = Color.FromArgb(127, 255, 127, 127);
+                    }
+                }
+            }
+        }
+
 
         /// <summary>
         /// Присвоение значений прямоугольникам и вывод обще списка в RecListBox
@@ -68,7 +100,6 @@ namespace Programming_WinFormsApp
             _rectangles = new Model.Rectangle[5];
             string[] colors = { "Orange", "White", "Pink", "Black", "Red", "Blue", "Yellow" };
 
-
             for (int i = 0; i < _rectangles.Length; i++)
             {
                 double length = rand.Next(1, 101);
@@ -76,14 +107,11 @@ namespace Programming_WinFormsApp
                 string color = colors[rand.Next(colors.Length)];
                 double centerX = Math.Round(rand.NextDouble() * 100, 1);
                 double centerY = Math.Round(rand.NextDouble() * 100, 1);
-                Point2D center = new Point2D(centerX,centerY);
 
                 _rectangles[i] = new Model.Rectangle(length, width, color, centerX, centerY);
 
                 RecListBox.Items.Add($"Rectangle {i + 1}");
-
             }
-            //SyncAllLists();
         }
 
         /// <summary>
@@ -94,13 +122,10 @@ namespace Programming_WinFormsApp
             // Сбрасываем счетчик для вкладки Rectangles
             Model.Rectangle.ResetRectanglesTabCount();
 
-            // Создаем пустой массив для вкладки Rectangles
             _rectanglesTab = new Model.Rectangle[0];
 
-            // Очищаем ListBox
             RectanListBox.Items.Clear();
 
-            // Очищаем канву
             if (_rectanglePanels != null)
             {
                 foreach (var panel in _rectanglePanels)
@@ -157,6 +182,32 @@ namespace Programming_WinFormsApp
 
         private void RectanListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (_rectanglesTab == null || _rectanglesTab.Length == 0)
+            {
+                RectanListBox.Items.Clear();
+
+                // Очищаем поля
+                HeightBox.Text = "";
+                WidthBox.Text = "";
+                XBox.Text = "";
+                YBox.Text = "";
+                IdBox.Text = "";
+                _currentRectangleTab = null;
+                return;
+            }
+
+            // Проверка индекса
+            if (RectanListBox.SelectedIndex < 0 || RectanListBox.SelectedIndex >= _rectanglesTab.Length)
+            {
+                HeightBox.Text = "";
+                WidthBox.Text = "";
+                XBox.Text = "";
+                YBox.Text = "";
+                IdBox.Text = "";
+                _currentRectangleTab = null;
+                return;
+            }
+
             int selectedIndex = RectanListBox.SelectedIndex;
             _currentRectangleTab = _rectanglesTab[selectedIndex];
 
@@ -164,7 +215,7 @@ namespace Programming_WinFormsApp
             WidthBox.Text = _currentRectangleTab.Width.ToString();
             XBox.Text = _currentRectangleTab.Center.X.ToString();
             YBox.Text = _currentRectangleTab.Center.Y.ToString();
-            IdBox.Text = _currentRectangleTab.Id.ToString();
+            IdBox.Text = (selectedIndex + 1).ToString();
         }
 
         /// <summary>
@@ -175,44 +226,38 @@ namespace Programming_WinFormsApp
         {
             var rect = _rectanglesTab[rectangleIndex];
 
-            // Определяем область канвы RecPanel
-            int canvasWidth = RecPanel.Width - 20;
-            int canvasHeight = RecPanel.Height - 20;
+            // Размеры канвы
+            int canvasWidth = RecPanel.Width;    // 522
+            int canvasHeight = RecPanel.Height;  // 548
 
-            if (canvasWidth <= 0) canvasWidth = 500;
-            if (canvasHeight <= 0) canvasHeight = 400;
+            float scaleX = canvasWidth / 400f;   
+            float scaleY = canvasHeight / 400f;
 
-            // Масштабируем координаты (0-100) в границы канвы
-            int panelX = 10 + (int)((rect.Center.X / 100.0) * (canvasWidth - 100));
-            int panelY = 10 + (int)((rect.Center.Y / 100.0) * (canvasHeight - 100));
+            int panelX = (int)((rect.Center.X - rect.Width / 2) * scaleX);
+            int panelY = (int)((rect.Center.Y - rect.Length / 2) * scaleY);
 
-            // Размеры панели
-            int panelWidth = Math.Max(20, Math.Min((int)rect.Width, canvasWidth - 50));
-            int panelHeight = Math.Max(20, Math.Min((int)rect.Length, canvasHeight - 50));
+            int panelWidth = Math.Max(5, (int)(rect.Width * scaleX));
+            int panelHeight = Math.Max(5, (int)(rect.Length * scaleY));
 
-            // Корректируем позицию
+            if (panelX < 0) panelX = 0;
+            if (panelY < 0) panelY = 0;
             if (panelX + panelWidth > canvasWidth) panelX = canvasWidth - panelWidth;
             if (panelY + panelHeight > canvasHeight) panelY = canvasHeight - panelHeight;
-            if (panelX < 10) panelX = 10;
-            if (panelY < 10) panelY = 10;
 
-            // Создаем панель
             Panel newPanel = new Panel();
             newPanel.Location = new Point(panelX, panelY);
-            newPanel.Width = panelWidth;
-            newPanel.Height = panelHeight;
+            newPanel.Size = new Size(panelWidth, panelHeight);
             newPanel.BackColor = Color.FromArgb(127, 127, 255, 127);
             newPanel.BorderStyle = BorderStyle.FixedSingle;
             newPanel.Tag = rectangleIndex;
 
-            // Добавляем подпись
             Label panelLabel = new Label
             {
                 Text = $"#{rectangleIndex + 1}",
-                Location = new Point(3, 3),
+                Location = new Point(2, 2),
                 AutoSize = true,
                 BackColor = Color.Transparent,
-                Font = new Font("Arial", 7, FontStyle.Bold)
+                Font = new Font("Arial", 6, FontStyle.Bold)
             };
             newPanel.Controls.Add(panelLabel);
 
@@ -220,6 +265,48 @@ namespace Programming_WinFormsApp
             RecPanel.Controls.Add(newPanel);
             _rectanglePanels.Add(newPanel);
             newPanel.BringToFront();
+
+            FindCollisions();
+        }
+
+        /// <summary>
+        /// Обновление позиций прямоугольников на панели
+        /// </summary>
+        /// <param name="index"></param>
+        private void UpdatePanelPosition(int index)
+        {
+            if (index >= _rectanglePanels.Count || index >= _rectanglesTab.Length) return;
+
+            var rect = _rectanglesTab[index];
+            var panel = _rectanglePanels[index];
+
+            int canvasWidth = RecPanel.Width;
+            int canvasHeight = RecPanel.Height;
+
+            // Масштабируем координаты с коэффициентом 0.25
+            float scaleX = canvasWidth / 400f;
+            float scaleY = canvasHeight / 400f;
+
+            int panelX = (int)((rect.Center.X - rect.Width / 2) * scaleX);
+            int panelY = (int)((rect.Center.Y - rect.Length / 2) * scaleY);
+            int panelWidth = Math.Max(5, (int)(rect.Width * scaleX));
+            int panelHeight = Math.Max(5, (int)(rect.Length * scaleY));
+
+            if (panelX < 0) panelX = 0;
+            if (panelY < 0) panelY = 0;
+            if (panelX + panelWidth > canvasWidth) panelX = canvasWidth - panelWidth;
+            if (panelY + panelHeight > canvasHeight) panelY = canvasHeight - panelHeight;
+
+            panel.Location = new Point(panelX, panelY);
+            panel.Size = new Size(panelWidth, panelHeight);
+
+            if (panel.Controls.Count > 0 && panel.Controls[0] is Label label)
+            {
+                if (!label.Text.StartsWith($"#{index + 1}"))
+                {
+                    label.Text = $"#{index + 1}";
+                }
+            }
         }
 
         /// <summary>
@@ -230,32 +317,25 @@ namespace Programming_WinFormsApp
             Random rand = new Random();
             string[] colors = { "Orange", "White", "Pink", "Black", "Red", "Blue", "Yellow" };
 
-            // Генерируем случайные параметры для нового прямоугольника
             double length = rand.Next(1, 101);
             double width = rand.Next(1, 101);
             string color = colors[rand.Next(colors.Length)];
-            double centerX = Math.Round(rand.NextDouble() * 100, 1);
-            double centerY = Math.Round(rand.NextDouble() * 100, 1);
+            double centerX = Math.Round(rand.NextDouble() * 350, 1);
+            double centerY = Math.Round(rand.NextDouble() * 350, 1);
 
-            // Создаем новый массив с увеличенным размером (для вкладки Rectangles)
             Model.Rectangle[] newRectangles = new Model.Rectangle[_rectanglesTab.Length + 1];
 
-            // Копируем существующие прямоугольники
             for (int i = 0; i < _rectanglesTab.Length; i++)
             {
                 newRectangles[i] = _rectanglesTab[i];
             }
 
-            // Добавляем новый прямоугольник, используя конструктор с флагом true для вкладки Rectangles
             newRectangles[_rectanglesTab.Length] = new Model.Rectangle(length, width, color, centerX, centerY, true);
 
-            // Заменяем старый массив новым
             _rectanglesTab = newRectangles;
 
-            // Добавляем элемент в ListBox
             RectanListBox.Items.Add($"{_rectanglesTab.Length}: (X={centerX}; Y={centerY}; W={width}; H={length})");
 
-            // Автоматически выбираем новый прямоугольник
             if (RectanListBox.Items.Count > 0)
             {
                 RectanListBox.SelectedIndex = RectanListBox.Items.Count - 1;
@@ -263,6 +343,8 @@ namespace Programming_WinFormsApp
 
             // Создаем панель на канве
             CreatePanelForRectangle(_rectanglesTab.Length - 1);
+
+            FindCollisions();
         }
 
         /// <summary>
@@ -273,18 +355,6 @@ namespace Programming_WinFormsApp
         private void ButtMinus_Click(object sender, EventArgs e)
         {
             int selectedIndex = RectanListBox.SelectedIndex;
-
-            if (selectedIndex == -1)
-            {
-                MessageBox.Show("Выберите прямоугольник для удаления!");
-                return;
-            }
-
-            if (_rectanglesTab.Length == 0)
-            {
-                MessageBox.Show("Нет прямоугольников для удаления!");
-                return;
-            }
 
             RectanListBox.SelectedIndexChanged -= RectanListBox_SelectedIndexChanged;
 
@@ -315,7 +385,6 @@ namespace Programming_WinFormsApp
 
                 _rectanglesTab = newRectangles;
 
-                // Перестраиваем ListBox
                 RectanListBox.Items.Clear();
                 for (int i = 0; i < _rectanglesTab.Length; i++)
                 {
@@ -333,11 +402,11 @@ namespace Programming_WinFormsApp
                     }
                 }
 
-                // Очищаем поля
+                FindCollisions();
+
                 HeightBox.Text = WidthBox.Text = XBox.Text = YBox.Text = IdBox.Text = "";
                 _currentRectangleTab = null;
 
-                // Выбираем новый элемент
                 if (RectanListBox.Items.Count > 0)
                 {
                     int newSelectedIndex = selectedIndex - 1;
@@ -383,6 +452,11 @@ namespace Programming_WinFormsApp
             }
         }
 
+        /// <summary>
+        /// Функциональность поля X во вкладке Rectangles
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void XBox_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(XBox.Text) || _currentRectangleTab == null)
@@ -391,7 +465,7 @@ namespace Programming_WinFormsApp
                 return;
             }
 
-            if (double.TryParse(XBox.Text, out double x) && x >= 0 && x <= 100)
+            if (double.TryParse(XBox.Text, out double x) && x >= 0 && x <= 350)
             {
                 _currentRectangleTab.Center = new Point2D(x, _currentRectangleTab.Center.Y);
                 XBox.BackColor = Color.White;
@@ -403,19 +477,26 @@ namespace Programming_WinFormsApp
                     UpdatePanelPosition(index);
                 }
 
-                // Обновляем текст в ListBox
                 if (RectanListBox.SelectedIndex != -1)
                 {
                     RectanListBox.Items[RectanListBox.SelectedIndex] =
                         $"{RectanListBox.SelectedIndex + 1}: (X={_currentRectangleTab.Center.X}; Y={_currentRectangleTab.Center.Y}; W={_currentRectangleTab.Width}; H={_currentRectangleTab.Length})";
                 }
+
+                FindCollisions();
             }
+
             else
             {
                 XBox.BackColor = Color.LightPink;
             }
         }
 
+        /// <summary>
+        /// Функциональность поля Y во вкладке Rectangles
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void YBox_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(YBox.Text) || _currentRectangleTab == null)
@@ -424,24 +505,24 @@ namespace Programming_WinFormsApp
                 return;
             }
 
-            if (double.TryParse(YBox.Text, out double y) && y >= 0 && y <= 100)
+            if (double.TryParse(YBox.Text, out double y) && y >= 0 && y <= 350)
             {
                 _currentRectangleTab.Center = new Point2D(_currentRectangleTab.Center.X, y);
                 YBox.BackColor = Color.White;
 
-                // Обновляем позицию панели на канве
                 int index = Array.IndexOf(_rectanglesTab, _currentRectangleTab);
                 if (index != -1 && index < _rectanglePanels.Count)
                 {
                     UpdatePanelPosition(index);
                 }
 
-                // Обновляем текст в ListBox
                 if (RectanListBox.SelectedIndex != -1)
                 {
                     RectanListBox.Items[RectanListBox.SelectedIndex] =
                         $"{RectanListBox.SelectedIndex + 1}: (X={_currentRectangleTab.Center.X}; Y={_currentRectangleTab.Center.Y}; W={_currentRectangleTab.Width}; H={_currentRectangleTab.Length})";
                 }
+
+                FindCollisions();
             }
             else
             {
@@ -449,29 +530,81 @@ namespace Programming_WinFormsApp
             }
         }
 
-        private void UpdatePanelPosition(int index)
-{
-    if (index >= _rectanglePanels.Count || index >= _rectanglesTab.Length) return;
-    
-    var rect = _rectanglesTab[index];
-    var panel = _rectanglePanels[index];
-    
-    int canvasWidth = RecPanel.Width - 20;
-    int canvasHeight = RecPanel.Height - 20;
-    
-    int panelX = 10 + (int)((rect.Center.X / 100.0) * (canvasWidth - 100));
-    int panelY = 10 + (int)((rect.Center.Y / 100.0) * (canvasHeight - 100));
-    
-    int panelWidth = Math.Max(20, Math.Min((int)rect.Width, canvasWidth - 50));
-    int panelHeight = Math.Max(20, Math.Min((int)rect.Length, canvasHeight - 50));
-    
-    if (panelX + panelWidth > canvasWidth) panelX = canvasWidth - panelWidth;
-    if (panelY + panelHeight > canvasHeight) panelY = canvasHeight - panelHeight;
-    if (panelX < 10) panelX = 10;
-    if (panelY < 10) panelY = 10;
-    
-    panel.Location = new Point(panelX, panelY);
-}
+        /// <summary>
+        /// Функциональность поля Width во вкладке Rectangles
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void WidthBox_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(WidthBox.Text) || _currentRectangleTab == null)
+            {
+                WidthBox.BackColor = Color.White;
+                return;
+            }
+
+            if (double.TryParse(WidthBox.Text, out double width) && width >= 1 && width <= 100)
+            {
+                _currentRectangleTab.Width = width;
+                WidthBox.BackColor = Color.White;
+
+                int index = Array.IndexOf(_rectanglesTab, _currentRectangleTab);
+                if (index != -1 && index < _rectanglePanels.Count)
+                {
+                    UpdatePanelPosition(index);
+                }
+
+                if (RectanListBox.SelectedIndex != -1)
+                {
+                    RectanListBox.Items[RectanListBox.SelectedIndex] =
+                        $"{RectanListBox.SelectedIndex + 1}: (X={_currentRectangleTab.Center.X}; Y={_currentRectangleTab.Center.Y}; W={_currentRectangleTab.Width}; H={_currentRectangleTab.Length})";
+                }
+
+                FindCollisions();
+            }
+            else
+            {
+                WidthBox.BackColor = Color.LightPink;
+            }
+        }
+
+        /// <summary>
+        /// Функциональность поля X во вкладке Rectangles
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HeightBox_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(HeightBox.Text) || _currentRectangleTab == null)
+            {
+                HeightBox.BackColor = Color.White;
+                return;
+            }
+
+            if (double.TryParse(HeightBox.Text, out double height) && height >= 1 && height <= 100)
+            {
+                _currentRectangleTab.Length = height;
+                HeightBox.BackColor = Color.White;
+
+                int index = Array.IndexOf(_rectanglesTab, _currentRectangleTab);
+                if (index != -1 && index < _rectanglePanels.Count)
+                {
+                    UpdatePanelPosition(index);
+                }
+
+                if (RectanListBox.SelectedIndex != -1)
+                {
+                    RectanListBox.Items[RectanListBox.SelectedIndex] =
+                        $"{RectanListBox.SelectedIndex + 1}: (X={_currentRectangleTab.Center.X}; Y={_currentRectangleTab.Center.Y}; W={_currentRectangleTab.Width}; H={_currentRectangleTab.Length})";
+                }
+
+                FindCollisions();
+            }
+            else
+            {
+                HeightBox.BackColor = Color.LightPink;
+            }
+        }
 
         /// <summary>
         /// Изменение цвета поля при не правлином вводе значения
@@ -516,6 +649,7 @@ namespace Programming_WinFormsApp
                 RecListBox.SelectedIndex = maxWidthIndex;
             }
         }
+
 
 
 

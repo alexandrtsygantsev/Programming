@@ -15,22 +15,20 @@ namespace Programming_WinFormsApp.Model
             double centerX2 = rectangle2.Center.X;
             double centerY2 = rectangle2.Center.Y;
 
-            double width1 = rectangle1.Width / 2.0;
-            double height1 = rectangle1.Length / 2.0;
-            double width2 = rectangle2.Width / 2.0;
-            double height2 = rectangle2.Length / 2.0;
+            double halfWidth1 = rectangle1.Width / 2.0;
+            double halfHeight1 = rectangle1.Length / 2.0;
+            double halfWidth2 = rectangle2.Width / 2.0;
+            double halfHeight2 = rectangle2.Length / 2.0;
 
-            double dX = Math.Abs(centerX1 - centerX2);
-            double dY = Math.Abs(centerY1 - centerY2);
+            double deltaX = Math.Abs(centerX1 - centerX2);
+            double deltaY = Math.Abs(centerY1 - centerY2);
 
-            if (dX < (width1 + width2) && dY < (height1 + height2))
+            if (deltaX < (halfWidth1 + halfWidth2) && deltaY < (halfHeight1 + halfHeight2))
             {
-                return true;  
+                return true; 
             }
-            else
-            {
-                return false; 
-            }
+
+            return false; 
         }
         public static bool IsCollision(Ring ring1, Ring ring2)
         {
