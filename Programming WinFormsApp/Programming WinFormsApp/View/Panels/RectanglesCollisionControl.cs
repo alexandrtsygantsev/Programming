@@ -1,4 +1,5 @@
 ﻿using Programming_WinFormsApp.Model.Geometry;
+using Programming_WinFormsApp.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -35,7 +36,7 @@ namespace Programming_WinFormsApp.Veiw.Panels
         {
             foreach (var panel in _rectanglePanels)
             {
-                panel.BackColor = Color.FromArgb(127, 127, 255, 127);
+                panel.BackColor = AppColors.NoCollisionColor;
             }
 
             for (int i = 0; i < _rectanglesTab.Length; i++)
@@ -47,10 +48,10 @@ namespace Programming_WinFormsApp.Veiw.Panels
                     if (CollisionManager.IsCollision(_rectanglesTab[i], _rectanglesTab[j]))
                     {
                         if (i < _rectanglePanels.Count)
-                            _rectanglePanels[i].BackColor = Color.FromArgb(127, 255, 127, 127);
+                            _rectanglePanels[i].BackColor = AppColors.CollisionColor;
 
                         if (j < _rectanglePanels.Count)
-                            _rectanglePanels[j].BackColor = Color.FromArgb(127, 255, 127, 127);
+                            _rectanglePanels[j].BackColor = AppColors.CollisionColor;
                     }
                 }
             }

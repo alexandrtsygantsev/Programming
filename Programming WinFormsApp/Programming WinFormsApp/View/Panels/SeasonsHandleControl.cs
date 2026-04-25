@@ -1,4 +1,5 @@
 ﻿using Programming_WinFormsApp.Model.Enums;
+using Programming_WinFormsApp.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,17 +31,17 @@ namespace Programming_WinFormsApp.View.Panels
             {
                 case Season.Summer:
                     MessageBox.Show("Ура! Солнце!");
-                    this.BackColor = Color.LightYellow;
+                    this.BackColor = AppColors.SummerColor;
                     break;
                 case Season.Autumn:
-                    this.BackColor = ColorTranslator.FromHtml("#e29c45");
+                    this.BackColor = AppColors.AutumnColor;
                     break;
                 case Season.Winter:
                     MessageBox.Show("Бррр! Холодно!");
-                    this.BackColor = Color.LightBlue;
+                    this.BackColor = AppColors.WinterColor;
                     break;
                 case Season.Spring:
-                    this.BackColor = ColorTranslator.FromHtml("#559c45");
+                    this.BackColor = AppColors.SpringColor;
                     break;
                 default:
                     MessageBox.Show("Что-то пошло не так");
