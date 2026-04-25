@@ -1,4 +1,6 @@
-﻿namespace Programming_WinFormsApp
+﻿using Programming_WinFormsApp.Veiw.Panels;
+
+namespace Programming_WinFormsApp
 {
     partial class MainForm
     {
@@ -28,7 +30,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             EnumPage = new TabPage();
             SeasHandleBox = new GroupBox();
             SeasonDropList = new ComboBox();
@@ -76,22 +77,7 @@
             LenLabel = new Label();
             RecListBox = new ListBox();
             tabPage1 = new TabPage();
-            ButtMinus = new Button();
-            ButtPlus = new Button();
-            RecPanel = new Panel();
-            HeightBox = new TextBox();
-            label13 = new Label();
-            WidthBox = new TextBox();
-            label12 = new Label();
-            YBox = new TextBox();
-            label11 = new Label();
-            XBox = new TextBox();
-            label10 = new Label();
-            IdBox = new TextBox();
-            label9 = new Label();
-            label8 = new Label();
-            label7 = new Label();
-            RectanListBox = new ListBox();
+            rectanglesCollisionControl1 = new RectanglesCollisionControl();
             EnumPage.SuspendLayout();
             SeasHandleBox.SuspendLayout();
             WeekParsBox.SuspendLayout();
@@ -603,22 +589,7 @@
             // 
             // tabPage1
             // 
-            tabPage1.Controls.Add(ButtMinus);
-            tabPage1.Controls.Add(ButtPlus);
-            tabPage1.Controls.Add(RecPanel);
-            tabPage1.Controls.Add(HeightBox);
-            tabPage1.Controls.Add(label13);
-            tabPage1.Controls.Add(WidthBox);
-            tabPage1.Controls.Add(label12);
-            tabPage1.Controls.Add(YBox);
-            tabPage1.Controls.Add(label11);
-            tabPage1.Controls.Add(XBox);
-            tabPage1.Controls.Add(label10);
-            tabPage1.Controls.Add(IdBox);
-            tabPage1.Controls.Add(label9);
-            tabPage1.Controls.Add(label8);
-            tabPage1.Controls.Add(label7);
-            tabPage1.Controls.Add(RectanListBox);
+            tabPage1.Controls.Add(rectanglesCollisionControl1);
             tabPage1.Location = new Point(4, 29);
             tabPage1.Margin = new Padding(3, 4, 3, 4);
             tabPage1.Name = "tabPage1";
@@ -627,160 +598,13 @@
             tabPage1.Text = "Rectangles";
             tabPage1.UseVisualStyleBackColor = true;
             // 
-            // ButtMinus
+            // rectanglesCollisionControl1
             // 
-            ButtMinus.Anchor = AnchorStyles.Left;
-            ButtMinus.BackgroundImage = (Image)resources.GetObject("ButtMinus.BackgroundImage");
-            ButtMinus.BackgroundImageLayout = ImageLayout.Stretch;
-            ButtMinus.FlatStyle = FlatStyle.Flat;
-            ButtMinus.ForeColor = Color.Transparent;
-            ButtMinus.Location = new Point(304, 261);
-            ButtMinus.Margin = new Padding(3, 4, 3, 4);
-            ButtMinus.Name = "ButtMinus";
-            ButtMinus.Size = new Size(40, 40);
-            ButtMinus.TabIndex = 29;
-            ButtMinus.TabStop = false;
-            ButtMinus.UseVisualStyleBackColor = true;
-            // 
-            // ButtPlus
-            // 
-            ButtPlus.Anchor = AnchorStyles.Left;
-            ButtPlus.BackgroundImage = (Image)resources.GetObject("ButtPlus.BackgroundImage");
-            ButtPlus.BackgroundImageLayout = ImageLayout.Stretch;
-            ButtPlus.FlatStyle = FlatStyle.Flat;
-            ButtPlus.ForeColor = Color.Transparent;
-            ButtPlus.Location = new Point(227, 261);
-            ButtPlus.Margin = new Padding(3, 4, 3, 4);
-            ButtPlus.Name = "ButtPlus";
-            ButtPlus.Size = new Size(40, 40);
-            ButtPlus.TabIndex = 28;
-            ButtPlus.TabStop = false;
-            ButtPlus.UseVisualStyleBackColor = true;
-            // 
-            // RecPanel
-            // 
-            RecPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            RecPanel.BorderStyle = BorderStyle.FixedSingle;
-            RecPanel.Location = new Point(374, 4);
-            RecPanel.Margin = new Padding(3, 4, 3, 4);
-            RecPanel.Name = "RecPanel";
-            RecPanel.Size = new Size(522, 548);
-            RecPanel.TabIndex = 27;
-            // 
-            // HeightBox
-            // 
-            HeightBox.Location = new Point(94, 505);
-            HeightBox.Margin = new Padding(3, 4, 3, 4);
-            HeightBox.Name = "HeightBox";
-            HeightBox.Size = new Size(131, 27);
-            HeightBox.TabIndex = 26;
-            // 
-            // label13
-            // 
-            label13.AutoSize = true;
-            label13.Location = new Point(34, 509);
-            label13.Name = "label13";
-            label13.Size = new Size(57, 20);
-            label13.TabIndex = 25;
-            label13.Text = "Height:";
-            // 
-            // WidthBox
-            // 
-            WidthBox.Location = new Point(94, 467);
-            WidthBox.Margin = new Padding(3, 4, 3, 4);
-            WidthBox.Name = "WidthBox";
-            WidthBox.Size = new Size(131, 27);
-            WidthBox.TabIndex = 24;
-            // 
-            // label12
-            // 
-            label12.AutoSize = true;
-            label12.Location = new Point(39, 471);
-            label12.Name = "label12";
-            label12.Size = new Size(52, 20);
-            label12.TabIndex = 23;
-            label12.Text = "Width:";
-            // 
-            // YBox
-            // 
-            YBox.Location = new Point(94, 428);
-            YBox.Margin = new Padding(3, 4, 3, 4);
-            YBox.Name = "YBox";
-            YBox.Size = new Size(131, 27);
-            YBox.TabIndex = 22;
-            // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.Location = new Point(67, 432);
-            label11.Name = "label11";
-            label11.Size = new Size(20, 20);
-            label11.TabIndex = 21;
-            label11.Text = "Y:";
-            // 
-            // XBox
-            // 
-            XBox.Location = new Point(94, 389);
-            XBox.Margin = new Padding(3, 4, 3, 4);
-            XBox.Name = "XBox";
-            XBox.Size = new Size(131, 27);
-            XBox.TabIndex = 20;
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Location = new Point(67, 393);
-            label10.Name = "label10";
-            label10.Size = new Size(21, 20);
-            label10.TabIndex = 19;
-            label10.Text = "X:";
-            // 
-            // IdBox
-            // 
-            IdBox.Location = new Point(94, 351);
-            IdBox.Margin = new Padding(3, 4, 3, 4);
-            IdBox.Name = "IdBox";
-            IdBox.ReadOnly = true;
-            IdBox.Size = new Size(131, 27);
-            IdBox.TabIndex = 18;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Location = new Point(64, 355);
-            label9.Name = "label9";
-            label9.Size = new Size(25, 20);
-            label9.TabIndex = 9;
-            label9.Text = "Id:";
-            // 
-            // label8
-            // 
-            label8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            label8.AutoSize = true;
-            label8.Location = new Point(30, 312);
-            label8.Name = "label8";
-            label8.Size = new Size(139, 20);
-            label8.TabIndex = 8;
-            label8.Text = "Selected Rectangle:";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(30, 13);
-            label7.Name = "label7";
-            label7.Size = new Size(84, 20);
-            label7.TabIndex = 7;
-            label7.Text = "Rectangles:";
-            // 
-            // RectanListBox
-            // 
-            RectanListBox.FormattingEnabled = true;
-            RectanListBox.Location = new Point(30, 37);
-            RectanListBox.Margin = new Padding(3, 4, 3, 4);
-            RectanListBox.Name = "RectanListBox";
-            RectanListBox.ScrollAlwaysVisible = true;
-            RectanListBox.Size = new Size(337, 204);
-            RectanListBox.TabIndex = 3;
+            rectanglesCollisionControl1.Dock = DockStyle.Fill;
+            rectanglesCollisionControl1.Location = new Point(0, 0);
+            rectanglesCollisionControl1.Name = "rectanglesCollisionControl1";
+            rectanglesCollisionControl1.Size = new Size(906, 567);
+            rectanglesCollisionControl1.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -805,7 +629,6 @@
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             tabPage1.ResumeLayout(false);
-            tabPage1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -857,21 +680,6 @@
         private Label IdLabel;
         private TextBox IdTextBox;
         private TabPage tabPage1;
-        private Label label9;
-        private Label label8;
-        private Label label7;
-        private ListBox RectanListBox;
-        private TextBox IdBox;
-        private TextBox HeightBox;
-        private Label label13;
-        private TextBox WidthBox;
-        private Label label12;
-        private TextBox YBox;
-        private Label label11;
-        private TextBox XBox;
-        private Label label10;
-        private Button ButtPlus;
-        private Panel RecPanel;
-        private Button ButtMinus;
+        private RectanglesCollisionControl rectanglesCollisionControl1;
     }
 }
