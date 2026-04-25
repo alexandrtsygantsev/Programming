@@ -13,6 +13,7 @@ namespace Programming_WinFormsApp.Model
         public string Teachers { get; set; }
         private int grade;
 
+        // Свойство для колличества часов
         public int NumHours
         {
             get { return numHours; }
@@ -24,6 +25,8 @@ namespace Programming_WinFormsApp.Model
                 }
             }
         }
+
+        // Свойство для оценки
         public int Grade
         {
             get { return grade; }
@@ -36,6 +39,14 @@ namespace Programming_WinFormsApp.Model
             }
         }
         public Subject() { }
+
+        /// <summary>
+        /// Инициализирует новый экземпляр класса Subject с указанными параметрами учебного предмета.
+        /// </summary>
+        /// <param name="name">Название предмета.</param>
+        /// <param name="numHours">Количество часов на изучение предмета.</param>
+        /// <param name="teachers">Преподаватель(и) предмета.</param>
+        /// <param name="grade">Оценка по предмету.</param>
         public Subject(string name, int numHours, string teachers, int grade)
         {
             Name = name;

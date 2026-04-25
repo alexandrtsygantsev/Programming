@@ -23,6 +23,10 @@ namespace Programming_WinFormsApp.View.Panels
             this.GoButton.Click += GoButton_Click;
         }
 
+        /// <summary>
+        /// Обрабатывает нажатие кнопки "Go", изменяя цвет фона формы в зависимости от выбранного времени года
+        /// и выводя соответствующее сообщение.
+        /// </summary>
         private void GoButton_Click(object sender, EventArgs e)
         {
             Season chooseSeason = (Season)SeasonDropList.SelectedItem;

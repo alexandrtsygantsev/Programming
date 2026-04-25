@@ -32,6 +32,10 @@ namespace Programming_WinFormsApp.Veiw.Panels
             this.HeightBox.TextChanged += HeightBox_TextChanged;
         }
 
+        /// <summary>
+        /// Выполняет поиск пересечений между всеми прямоугольниками и визуально отмечает прямоугольники,
+        /// которые пересекаются.
+        /// </summary>
         private void FindCollisions()
         {
             foreach (var panel in _rectanglePanels)
@@ -84,6 +88,11 @@ namespace Programming_WinFormsApp.Veiw.Panels
                 _rectanglePanels = new List<Panel>();
             }
         }
+
+        /// <summary>
+        /// Обрабатывает изменение выбранного элемента в списке прямоугольников,
+        /// отображая параметры выбранного прямоугольника в соответствующих полях ввода.
+        /// </summary>
         private void RectanListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_rectanglesTab == null || _rectanglesTab.Length == 0)

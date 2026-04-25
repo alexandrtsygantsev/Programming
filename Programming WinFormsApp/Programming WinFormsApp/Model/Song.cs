@@ -12,6 +12,7 @@ namespace Programming_WinFormsApp.Model
         public string Author { get; set; }
         private int duration;
 
+        // Свойство для продолжительности
         public int Duration
         {
             get { return duration; }
@@ -25,6 +26,13 @@ namespace Programming_WinFormsApp.Model
         }
 
         public Song() { }
+
+        /// <summary>
+        /// Инициализирует новый экземпляр класса Song с указанными параметрами песни.
+        /// </summary>
+        /// <param name="title">Название песни.</param>
+        /// <param name="author">Автор или исполнитель песни.</param>
+        /// <param name="duration">Продолжительность песни в секундах.</param>
         public Song(string  title, string author, int duration)
         {
             Title = title;

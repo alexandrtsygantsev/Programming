@@ -15,7 +15,7 @@ namespace Programming_WinFormsApp.Model
         public string Genre {  get; set; }
         private double rating;
 
-        // Свойство для названия (автосвойство - без ограничений)
+        // Свойство для названия
         public string Name
         {
             get { return name; }
@@ -42,6 +42,7 @@ namespace Programming_WinFormsApp.Model
             }
         }
 
+        // Свойство для года выпуска
         public int Years
         {
             get { return years; }
@@ -54,6 +55,8 @@ namespace Programming_WinFormsApp.Model
                 }
             }
         }
+
+        // Свойство для рейтинга
 
         public double Rating
         {
@@ -69,6 +72,14 @@ namespace Programming_WinFormsApp.Model
 
         public Film() { }
 
+        /// <summary>
+        /// Инициализирует новый экземпляр класса Film с указанными параметрами фильма.
+        /// </summary>
+        /// <param name="name">Название фильма.</param>
+        /// <param name="durationMin">Продолжительность фильма в минутах.</param>
+        /// <param name="years">Год выпуска фильма.</param>
+        /// <param name="genre">Жанр фильма.</param>
+        /// <param name="rating">Рейтинг фильма.</param>
         public Film(string name, int durationMin, int years, string genre, double rating)
         {
             Name = name;

@@ -65,6 +65,13 @@ namespace Programming_WinFormsApp.Model
             }
         }
         public Time() { }
+
+        /// <summary>
+        /// Инициализирует новый экземпляр класса Time с указанными значениями часов, минут и секунд.
+        /// </summary>
+        /// <param name="hour">Значение часов (0-23).</param>
+        /// <param name="min">Значение минут (0-59).</param>
+        /// <param name="sec">Значение секунд (0-59).</param>
         public Time(int hour, int min, int sec)
         {
             this.hour = hour;

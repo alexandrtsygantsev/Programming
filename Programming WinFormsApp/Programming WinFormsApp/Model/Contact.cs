@@ -13,6 +13,7 @@ namespace Programming_WinFormsApp.Model
         private string name {  get; set; }
         private int phone;
 
+        // Свойство для номера телефона
         public int Phone
         {
             get { return phone; }
@@ -25,6 +26,12 @@ namespace Programming_WinFormsApp.Model
             }
 
         }
+
+        /// <summary>
+        /// Проверяет, содержит ли строка только буквы латинского алфавита.
+        /// </summary>
+        /// <param name="value">Проверяемая строка.</param>
+        /// <returns>true, если строка содержит только буквы; в противном случае выбрасывает исключение.</returns>
         private bool AssertStringContainsOnlyLetters(string value)
         {
             string alf = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -37,6 +44,8 @@ namespace Programming_WinFormsApp.Model
                 return true;
             }
         }
+
+        // Свойство для имени
         public string Name
         {
             get { return name; }
@@ -49,6 +58,7 @@ namespace Programming_WinFormsApp.Model
             }
         }
 
+        // Свойство для фамилии
         public string Surname
         {
             get { return surname; }
@@ -62,6 +72,12 @@ namespace Programming_WinFormsApp.Model
         }
         public Contact() { }
 
+        /// <summary>
+        /// Инициализирует новый экземпляр класса Contact с указанными контактными данными.
+        /// </summary>
+        /// <param name="surname">Фамилия контакта.</param>
+        /// <param name="name">Имя контакта.</param>
+        /// <param name="phone">Номер телефона контакта.</param>
         public Contact(string surname, string name, int phone)
         {
             Surname = surname;
