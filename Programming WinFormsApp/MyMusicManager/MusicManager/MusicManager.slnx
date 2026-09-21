@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/Элементы решения/">
+    <File Path="C:/Users/Admin/Downloads/app.ico" />
+  </Folder>
+  <Project Path="MusicManager/MusicManager.csproj" />
+  <Project Path="MusicManagerSetup/MusicManagerSetup.vdproj" Type="Installer">
+    <Build />
+  </Project>
+</Solution>
