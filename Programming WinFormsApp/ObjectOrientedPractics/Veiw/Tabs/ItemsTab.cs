@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ObjectOrientedPractics.Veiw.Tabs
 {
@@ -18,10 +17,9 @@ namespace ObjectOrientedPractics.Veiw.Tabs
         private List<Item> _items = new List<Item>();
 
         /// <summary>
-        /// Флаг, блокирующий реакцию на изменение текста во время
-        /// программной подстановки значений.
+        /// Последнее значение Cost, по которому уже показали сообщение.
         /// </summary>
-        private bool _isUpdating;
+        private double _lastReportedCost = double.NaN;
 
         /// <summary>
         /// Создаёт экземпляр класса <see cref="ItemsTab"/>.
@@ -33,20 +31,51 @@ namespace ObjectOrientedPractics.Veiw.Tabs
         }
 
         /// <summary>
+        /// Отписывает обработчики от событий TextChanged.
+        /// </summary>
+        private void DetachTextHandlers()
+        {
+            CostTextBox.TextChanged -= CostTextBox_TextChanged;
+            NameTextBox.TextChanged -= NameTextBox_TextChanged;
+            DescriptionLTextBox.TextChanged -= DescriptionLTextBox_TextChanged;
+        }
+
+        /// <summary>
+        /// Подписывает обработчики на события TextChanged.
+        /// </summary>
+        private void AttachTextHandlers()
+        {
+            CostTextBox.TextChanged += CostTextBox_TextChanged;
+            NameTextBox.TextChanged += NameTextBox_TextChanged;
+            DescriptionLTextBox.TextChanged += DescriptionLTextBox_TextChanged;
+        }
+
+        /// <summary>
+        /// Заполняет поля значениями товара без реакции обработчиков.
+        /// </summary>
+        private void FillFields(Item item)
+        {
+            DetachTextHandlers();
+            IdTextBox.Text = item.Id.ToString();
+            CostTextBox.Text = item.Cost.ToString();
+            NameTextBox.Text = item.Name;
+            DescriptionLTextBox.Text = item.Info;
+            AttachTextHandlers();
+        }
+
+        /// <summary>
         /// Приводит поля ввода в исходное (пустое) состояние.
         /// </summary>
         private void ClearFields()
         {
-            _isUpdating = true;
+            DetachTextHandlers();
             IdTextBox.Text = string.Empty;
             CostTextBox.Text = string.Empty;
             NameTextBox.Text = string.Empty;
             DescriptionLTextBox.Text = string.Empty;
-            _isUpdating = false;
+            AttachTextHandlers();
 
-            CostTextBox.BackColor = Color.White;
-            NameTextBox.BackColor = Color.White;
-            DescriptionLTextBox.BackColor = Color.White;
+            _lastReportedCost = double.NaN;
         }
 
         /// <summary>
@@ -54,7 +83,8 @@ namespace ObjectOrientedPractics.Veiw.Tabs
         /// </summary>
         private void AddButton_Click(object sender, EventArgs e)
         {
-            if (!double.TryParse(CostTextBox.Text, out double cost))
+            if (!double.TryParse(CostTextBox.Text, out double cost) ||
+                cost < 0 || cost > 100000)
             {
                 CostTextBox.BackColor = Color.LightPink;
                 return;
@@ -75,43 +105,12 @@ namespace ObjectOrientedPractics.Veiw.Tabs
                 return;
             }
 
-            try
-            {
-                var item = new Item(name, info, cost);
-                _items.Add(item);
-                ItmesListBox.Items.Add(item.Name);
+            var item = new Item(name, info, cost);
+            _items.Add(item);
+            ItmesListBox.Items.Add(item.Name);
 
-                _isUpdating = true;
-                ItmesListBox.SelectedIndex = _items.Count - 1;
-                IdTextBox.Text = item.Id.ToString();
-                CostTextBox.Text = item.Cost.ToString();
-                NameTextBox.Text = item.Name;
-                DescriptionLTextBox.Text = item.Info;
-                _isUpdating = false;
-
-                CostTextBox.BackColor = Color.White;
-                NameTextBox.BackColor = Color.White;
-                DescriptionLTextBox.BackColor = Color.White;
-            }
-            catch (ArgumentException ex)
-            {
-                if (ex.Message.StartsWith("Name"))
-                {
-                    NameTextBox.BackColor = Color.LightPink;
-                }
-                else if (ex.Message.StartsWith("Info"))
-                {
-                    DescriptionLTextBox.BackColor = Color.LightPink;
-                }
-                else if (ex.Message.StartsWith("Cost"))
-                {
-                    CostTextBox.BackColor = Color.LightPink;
-                }
-                else
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
+            ItmesListBox.SelectedIndex = _items.Count - 1;
+            FillFields(item);
         }
 
         /// <summary>
@@ -148,18 +147,7 @@ namespace ObjectOrientedPractics.Veiw.Tabs
                 return;
             }
 
-            Item item = _items[index];
-
-            _isUpdating = true;
-            IdTextBox.Text = item.Id.ToString();
-            CostTextBox.Text = item.Cost.ToString();
-            NameTextBox.Text = item.Name;
-            DescriptionLTextBox.Text = item.Info;
-            _isUpdating = false;
-
-            CostTextBox.BackColor = Color.White;
-            NameTextBox.BackColor = Color.White;
-            DescriptionLTextBox.BackColor = Color.White;
+            FillFields(_items[index]);
         }
 
         /// <summary>
@@ -167,7 +155,6 @@ namespace ObjectOrientedPractics.Veiw.Tabs
         /// </summary>
         private void CostTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (_isUpdating) return;
             int index = ItmesListBox.SelectedIndex;
             if (index < 0) return;
 
@@ -177,15 +164,20 @@ namespace ObjectOrientedPractics.Veiw.Tabs
                 return;
             }
 
-            try
-            {
-                _items[index].Cost = cost;
-                CostTextBox.BackColor = Color.White;
-            }
-            catch (ArgumentException)
+            if (cost < 0 || cost > 100000)
             {
                 CostTextBox.BackColor = Color.LightPink;
+
+                if (cost != _lastReportedCost)
+                {
+                    _lastReportedCost = cost;
+                    MessageBox.Show("Стоимость должна быть в диапазоне от 0 до 100000.");
+                }
+                return;
             }
+
+            _items[index].Cost = cost;
+            CostTextBox.BackColor = Color.White;
         }
 
         /// <summary>
@@ -193,20 +185,18 @@ namespace ObjectOrientedPractics.Veiw.Tabs
         /// </summary>
         private void NameTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (_isUpdating) return;
             int index = ItmesListBox.SelectedIndex;
             if (index < 0) return;
 
-            try
-            {
-                _items[index].Name = NameTextBox.Text;
-                NameTextBox.BackColor = Color.White;
-                UpdateListBoxItem(index);
-            }
-            catch (ArgumentException)
+            if (string.IsNullOrWhiteSpace(NameTextBox.Text))
             {
                 NameTextBox.BackColor = Color.LightPink;
+                return;
             }
+
+            _items[index].Name = NameTextBox.Text;
+            NameTextBox.BackColor = Color.White;
+            UpdateListBoxItem(index);
         }
 
         /// <summary>
@@ -214,19 +204,17 @@ namespace ObjectOrientedPractics.Veiw.Tabs
         /// </summary>
         private void DescriptionLTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (_isUpdating) return;
             int index = ItmesListBox.SelectedIndex;
             if (index < 0) return;
 
-            try
-            {
-                _items[index].Info = DescriptionLTextBox.Text;
-                DescriptionLTextBox.BackColor = Color.White;
-            }
-            catch (ArgumentException)
+            if (string.IsNullOrWhiteSpace(DescriptionLTextBox.Text))
             {
                 DescriptionLTextBox.BackColor = Color.LightPink;
+                return;
             }
+
+            _items[index].Info = DescriptionLTextBox.Text;
+            DescriptionLTextBox.BackColor = Color.White;
         }
 
         /// <summary>
