@@ -1,4 +1,5 @@
 ﻿using ObjectOrientedPractics.Services;
+using ObjectOrientedPractics.Veiw;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,9 @@ namespace ObjectOrientedPractics.Model
         /// Стоимость товара
         /// </summary>
         private double _cost;
+
+        public Category Category { get; set; }
+
 
         public string Name
         {
@@ -71,12 +75,20 @@ namespace ObjectOrientedPractics.Model
             get { return _id; }
         }
 
-        public Item(string name, string info, double cost)
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="Item"/>.
+        /// </summary>
+        /// <param name="name">Название товара.</param>
+        /// <param name="info">Описание товара.</param>
+        /// <param name="cost">Стоимость товара.</param>
+        /// <param name="category">Категория товара.</param>
+        public Item(string name, string info, double cost, Category category)
         {
             _id = IdGenerator.GetNextId();
             Name = name;
             Info = info;
             Cost = cost;
+            Category = category;
         }
     }
 }

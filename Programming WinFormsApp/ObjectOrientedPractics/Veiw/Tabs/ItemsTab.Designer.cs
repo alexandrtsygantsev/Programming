@@ -34,6 +34,8 @@
             ButtonLayoutPanel = new TableLayoutPanel();
             RemoveButton = new Button();
             AddButton = new Button();
+            CategoryLabel = new Label();
+            CategoryComboBox = new ComboBox();
             DescriptionLTextBox = new TextBox();
             label5 = new Label();
             NameTextBox = new TextBox();
@@ -66,6 +68,8 @@
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.BackColor = SystemColors.ButtonHighlight;
+            splitContainer1.Panel2.Controls.Add(CategoryLabel);
+            splitContainer1.Panel2.Controls.Add(CategoryComboBox);
             splitContainer1.Panel2.Controls.Add(DescriptionLTextBox);
             splitContainer1.Panel2.Controls.Add(label5);
             splitContainer1.Panel2.Controls.Add(NameTextBox);
@@ -135,6 +139,23 @@
             AddButton.UseVisualStyleBackColor = true;
             AddButton.Click += AddButton_Click;
             // 
+            // CategoryLabel
+            // 
+            CategoryLabel.AutoSize = true;
+            CategoryLabel.Location = new Point(3, 97);
+            CategoryLabel.Name = "CategoryLabel";
+            CategoryLabel.Size = new Size(58, 15);
+            CategoryLabel.TabIndex = 13;
+            CategoryLabel.Text = "Category:";
+            // 
+            // CategoryComboBox
+            // 
+            CategoryComboBox.FormattingEnabled = true;
+            CategoryComboBox.Location = new Point(67, 94);
+            CategoryComboBox.Name = "CategoryComboBox";
+            CategoryComboBox.Size = new Size(121, 23);
+            CategoryComboBox.TabIndex = 12;
+            // 
             // DescriptionLTextBox
             // 
             DescriptionLTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -175,17 +196,17 @@
             // 
             // IdTextBox
             // 
-            IdTextBox.Location = new Point(43, 31);
+            IdTextBox.Location = new Point(67, 31);
             IdTextBox.Name = "IdTextBox";
             IdTextBox.ReadOnly = true;
-            IdTextBox.Size = new Size(115, 23);
+            IdTextBox.Size = new Size(121, 23);
             IdTextBox.TabIndex = 7;
             // 
             // CostTextBox
             // 
-            CostTextBox.Location = new Point(43, 65);
+            CostTextBox.Location = new Point(67, 65);
             CostTextBox.Name = "CostTextBox";
-            CostTextBox.Size = new Size(115, 23);
+            CostTextBox.Size = new Size(121, 23);
             CostTextBox.TabIndex = 6;
             CostTextBox.TextChanged += CostTextBox_TextChanged;
             // 
@@ -251,5 +272,7 @@
         private Label LabelSelectedItem;
         private TextBox DescriptionLTextBox;
         private Label label5;
+        private Label CategoryLabel;
+        private ComboBox CategoryComboBox;
     }
 }

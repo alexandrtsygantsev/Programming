@@ -30,9 +30,9 @@
         {
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
-            itemsTab1 = new ObjectOrientedPractics.Veiw.Tabs.ItemsTab();
             Customers = new TabPage();
             customersTab1 = new ObjectOrientedPractics.Veiw.Tabs.CustomersTab();
+            itemsTab1 = new ObjectOrientedPractics.Veiw.Tabs.ItemsTab();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             Customers.SuspendLayout();
@@ -60,14 +60,6 @@
             tabPage1.Text = "Items";
             tabPage1.UseVisualStyleBackColor = true;
             // 
-            // itemsTab1
-            // 
-            itemsTab1.Dock = DockStyle.Fill;
-            itemsTab1.Location = new Point(3, 3);
-            itemsTab1.Name = "itemsTab1";
-            itemsTab1.Size = new Size(692, 521);
-            itemsTab1.TabIndex = 0;
-            // 
             // Customers
             // 
             Customers.Controls.Add(customersTab1);
@@ -86,6 +78,14 @@
             customersTab1.Name = "customersTab1";
             customersTab1.Size = new Size(692, 521);
             customersTab1.TabIndex = 0;
+            // 
+            // itemsTab1
+            // 
+            itemsTab1.Dock = DockStyle.Fill;
+            itemsTab1.Location = new Point(3, 3);
+            itemsTab1.Name = "itemsTab1";
+            itemsTab1.Size = new Size(692, 521);
+            itemsTab1.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -107,7 +107,7 @@
         private TabControl tabControl1;
         private TabPage tabPage1;
         private TabPage Customers;
-        private Veiw.Tabs.ItemsTab itemsTab1;
         private Veiw.Tabs.CustomersTab customersTab1;
+        private Veiw.Tabs.ItemsTab itemsTab1;
     }
 }

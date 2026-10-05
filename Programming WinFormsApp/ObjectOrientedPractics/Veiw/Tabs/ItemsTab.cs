@@ -28,6 +28,22 @@ namespace ObjectOrientedPractics.Veiw.Tabs
         {
             InitializeComponent();
             ItmesListBox.Items.Clear();
+            InitializeCategoryComboBox();
+        }
+
+        /// <summary>
+        /// Инициализирует выпадающий список категорий значениями перечисления.
+        /// </summary>
+        private void InitializeCategoryComboBox()
+        {
+            CategoryComboBox.Items.Clear();
+
+            foreach (var category in Enum.GetValues(typeof(Category)))
+            {
+                CategoryComboBox.Items.Add(category);
+            }
+
+            CategoryComboBox.SelectedIndex = -1;
         }
 
         /// <summary>
@@ -51,15 +67,24 @@ namespace ObjectOrientedPractics.Veiw.Tabs
         }
 
         /// <summary>
-        /// Заполняет поля значениями товар
+        /// Заполняет поля значениями товара.
         /// </summary>
         private void FillFields(Item item)
         {
             DetachTextHandlers();
+
+            // Отписываемся от события, чтобы смена SelectedItem
+            // не триггерила обработчик и не перезаписывала категорию.
+            CategoryComboBox.SelectedIndexChanged -= CategoryComboBox_SelectedIndexChanged;
+
             IdTextBox.Text = item.Id.ToString();
             CostTextBox.Text = item.Cost.ToString();
             NameTextBox.Text = item.Name;
             DescriptionLTextBox.Text = item.Info;
+            CategoryComboBox.SelectedItem = item.Category;
+
+            CategoryComboBox.SelectedIndexChanged += CategoryComboBox_SelectedIndexChanged;
+
             AttachTextHandlers();
         }
 
@@ -69,10 +94,13 @@ namespace ObjectOrientedPractics.Veiw.Tabs
         private void ClearFields()
         {
             DetachTextHandlers();
+
             IdTextBox.Text = string.Empty;
             CostTextBox.Text = string.Empty;
             NameTextBox.Text = string.Empty;
             DescriptionLTextBox.Text = string.Empty;
+            CategoryComboBox.SelectedIndex = -1;
+
             AttachTextHandlers();
 
             _lastReportedCost = double.NaN;
@@ -105,7 +133,15 @@ namespace ObjectOrientedPractics.Veiw.Tabs
                 return;
             }
 
-            var item = new Item(name, info, cost);
+            if (CategoryComboBox.SelectedIndex < 0)
+            {
+                CategoryComboBox.BackColor = Color.LightPink;
+                return;
+            }
+
+            Category category = (Category)CategoryComboBox.SelectedItem;
+
+            var item = new Item(name, info, cost, category);
             _items.Add(item);
             ItmesListBox.Items.Add(item.Name);
 
@@ -148,6 +184,26 @@ namespace ObjectOrientedPractics.Veiw.Tabs
             }
 
             FillFields(_items[index]);
+        }
+
+        /// <summary>
+        /// Обработчик смены выбранной категории в выпадающем списке.
+        /// Присваивает выбранную категорию текущему выбранному товару.
+        /// </summary>
+        private void CategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int index = ItmesListBox.SelectedIndex;
+            if (index < 0) return;
+
+            if (CategoryComboBox.SelectedItem == null) return;
+
+            Category selectedCategory = (Category)CategoryComboBox.SelectedItem;
+
+            // Проверяем: если категория уже такая же — ничего не делаем.
+            if (_items[index].Category == selectedCategory) return;
+
+            _items[index].Category = selectedCategory;
+            CategoryComboBox.BackColor = Color.White;
         }
 
         /// <summary>
