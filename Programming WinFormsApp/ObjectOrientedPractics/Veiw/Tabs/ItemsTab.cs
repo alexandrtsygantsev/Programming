@@ -51,7 +51,7 @@ namespace ObjectOrientedPractics.Veiw.Tabs
         }
 
         /// <summary>
-        /// Заполняет поля значениями товара без реакции обработчиков.
+        /// Заполняет поля значениями товар
         /// </summary>
         private void FillFields(Item item)
         {
