@@ -23,7 +23,8 @@ namespace ObjectOrientedPractics.Model
         /// <summary>
         /// Адрес доставки
         /// </summary>
-        private string _address;
+        public Address Address
+        { get; set; }
 
         public string FullName
         {
@@ -36,21 +37,11 @@ namespace ObjectOrientedPractics.Model
             }
         }
 
-        public string Address
-        {
-            get { return _address; }
-            set
-            {
-                ValueValidator.AssertStringOnLength(value, 500, nameof(Address));
-                _address = value;
-            }
-        }
-
         public int Id
         {
             get { return _id; }
         }
-        public Customer (string fullname, string address)
+        public Customer (string fullname, Address address)
         {
             _id = IdGenerator.GetNextId();
             FullName = fullname;

@@ -30,9 +30,9 @@
         {
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            itemsTab1 = new ObjectOrientedPractics.Veiw.Tabs.ItemsTab();
             Customers = new TabPage();
             customersTab1 = new ObjectOrientedPractics.Veiw.Tabs.CustomersTab();
-            itemsTab1 = new ObjectOrientedPractics.Veiw.Tabs.ItemsTab();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             Customers.SuspendLayout();
@@ -46,7 +46,7 @@
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(706, 555);
+            tabControl1.Size = new Size(848, 555);
             tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -55,10 +55,18 @@
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(698, 527);
+            tabPage1.Size = new Size(840, 527);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Items";
             tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // itemsTab1
+            // 
+            itemsTab1.Dock = DockStyle.Fill;
+            itemsTab1.Location = new Point(3, 3);
+            itemsTab1.Name = "itemsTab1";
+            itemsTab1.Size = new Size(834, 521);
+            itemsTab1.TabIndex = 0;
             // 
             // Customers
             // 
@@ -66,32 +74,24 @@
             Customers.Location = new Point(4, 24);
             Customers.Name = "Customers";
             Customers.Padding = new Padding(3);
-            Customers.Size = new Size(698, 527);
+            Customers.Size = new Size(840, 527);
             Customers.TabIndex = 1;
             Customers.Text = "Customers";
             Customers.UseVisualStyleBackColor = true;
             // 
             // customersTab1
             // 
-            customersTab1.Dock = DockStyle.Left;
+            customersTab1.Dock = DockStyle.Fill;
             customersTab1.Location = new Point(3, 3);
             customersTab1.Name = "customersTab1";
-            customersTab1.Size = new Size(692, 521);
+            customersTab1.Size = new Size(834, 521);
             customersTab1.TabIndex = 0;
-            // 
-            // itemsTab1
-            // 
-            itemsTab1.Dock = DockStyle.Fill;
-            itemsTab1.Location = new Point(3, 3);
-            itemsTab1.Name = "itemsTab1";
-            itemsTab1.Size = new Size(692, 521);
-            itemsTab1.TabIndex = 0;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(706, 555);
+            ClientSize = new Size(848, 555);
             Controls.Add(tabControl1);
             Name = "MainForm";
             Text = "Object Oriented Preactics";
@@ -107,7 +107,7 @@
         private TabControl tabControl1;
         private TabPage tabPage1;
         private TabPage Customers;
-        private Veiw.Tabs.CustomersTab customersTab1;
         private Veiw.Tabs.ItemsTab itemsTab1;
+        private Veiw.Tabs.CustomersTab customersTab1;
     }
 }

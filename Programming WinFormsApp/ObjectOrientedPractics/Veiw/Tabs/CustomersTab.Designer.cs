@@ -21,9 +21,8 @@
             AddButton = new Button();
             RemoveButton = new Button();
             CustomersListBox = new ListBox();
+            addressControl = new ObjectOrientedPractics.Veiw.Controls.AddressControl();
             label2 = new Label();
-            AddressTextBox = new TextBox();
-            label4 = new Label();
             IdTextBox = new TextBox();
             FullNameTextBox = new TextBox();
             CostLabel = new Label();
@@ -49,15 +48,14 @@
             // 
             // splitContainer1.Panel2
             // 
+            splitContainer1.Panel2.Controls.Add(addressControl);
             splitContainer1.Panel2.Controls.Add(label2);
-            splitContainer1.Panel2.Controls.Add(AddressTextBox);
-            splitContainer1.Panel2.Controls.Add(label4);
             splitContainer1.Panel2.Controls.Add(IdTextBox);
             splitContainer1.Panel2.Controls.Add(FullNameTextBox);
             splitContainer1.Panel2.Controls.Add(CostLabel);
             splitContainer1.Panel2.Controls.Add(IdLabel);
-            splitContainer1.Size = new Size(707, 470);
-            splitContainer1.SplitterDistance = 294;
+            splitContainer1.Size = new Size(842, 470);
+            splitContainer1.SplitterDistance = 288;
             splitContainer1.TabIndex = 0;
             // 
             // label1
@@ -116,6 +114,13 @@
             CustomersListBox.TabIndex = 0;
             CustomersListBox.SelectedIndexChanged += CustomersListBox_SelectedIndexChanged;
             // 
+            // addressControl
+            // 
+            addressControl.Location = new Point(-1, 109);
+            addressControl.Name = "addressControl";
+            addressControl.Size = new Size(511, 157);
+            addressControl.TabIndex = 14;
+            // 
             // label2
             // 
             label2.AutoSize = true;
@@ -125,25 +130,6 @@
             label2.Size = new Size(139, 20);
             label2.TabIndex = 3;
             label2.Text = "Selected Customer";
-            // 
-            // AddressTextBox
-            // 
-            AddressTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            AddressTextBox.Location = new Point(79, 126);
-            AddressTextBox.Multiline = true;
-            AddressTextBox.Name = "AddressTextBox";
-            AddressTextBox.Size = new Size(288, 111);
-            AddressTextBox.TabIndex = 15;
-            AddressTextBox.TextChanged += AddressTextBox_TextChanged;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(12, 126);
-            label4.Name = "label4";
-            label4.Size = new Size(52, 15);
-            label4.TabIndex = 14;
-            label4.Text = "Address:";
             // 
             // IdTextBox
             // 
@@ -185,7 +171,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(splitContainer1);
             Name = "CustomersTab";
-            Size = new Size(707, 470);
+            Size = new Size(842, 470);
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel1.PerformLayout();
             splitContainer1.Panel2.ResumeLayout(false);
@@ -204,12 +190,11 @@
         private ListBox CustomersListBox;
         private Button AddButton;
         private Button RemoveButton;
-        private TextBox AddressTextBox;
-        private Label label4;
         private TextBox IdTextBox;
         private TextBox FullNameTextBox;
         private Label CostLabel;
         private Label IdLabel;
         private Label label2;
+        private Controls.AddressControl addressControl;
     }
 }
