@@ -95,6 +95,7 @@
             // 
             // ItmesListBox
             // 
+            ItmesListBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             ItmesListBox.FormattingEnabled = true;
             ItmesListBox.Location = new Point(6, 17);
             ItmesListBox.Name = "ItmesListBox";
@@ -104,6 +105,7 @@
             // 
             // ButtonLayoutPanel
             // 
+            ButtonLayoutPanel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ButtonLayoutPanel.ColumnCount = 3;
             ButtonLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             ButtonLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
@@ -150,6 +152,7 @@
             // 
             // CategoryComboBox
             // 
+            CategoryComboBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             CategoryComboBox.FormattingEnabled = true;
             CategoryComboBox.Location = new Point(67, 94);
             CategoryComboBox.Name = "CategoryComboBox";
@@ -158,7 +161,7 @@
             // 
             // DescriptionLTextBox
             // 
-            DescriptionLTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            DescriptionLTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             DescriptionLTextBox.Location = new Point(3, 301);
             DescriptionLTextBox.Multiline = true;
             DescriptionLTextBox.Name = "DescriptionLTextBox";
@@ -177,7 +180,7 @@
             // 
             // NameTextBox
             // 
-            NameTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            NameTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             NameTextBox.Location = new Point(3, 166);
             NameTextBox.Multiline = true;
             NameTextBox.Name = "NameTextBox";
@@ -196,6 +199,7 @@
             // 
             // IdTextBox
             // 
+            IdTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             IdTextBox.Location = new Point(67, 31);
             IdTextBox.Name = "IdTextBox";
             IdTextBox.ReadOnly = true;
@@ -204,6 +208,7 @@
             // 
             // CostTextBox
             // 
+            CostTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             CostTextBox.Location = new Point(67, 65);
             CostTextBox.Name = "CostTextBox";
             CostTextBox.Size = new Size(121, 23);

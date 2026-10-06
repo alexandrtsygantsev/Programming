@@ -70,6 +70,7 @@
             // 
             // tableLayoutPanel1
             // 
+            tableLayoutPanel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tableLayoutPanel1.ColumnCount = 3;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 47.38806F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 52.61194F));
@@ -107,6 +108,7 @@
             // 
             // CustomersListBox
             // 
+            CustomersListBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             CustomersListBox.FormattingEnabled = true;
             CustomersListBox.Location = new Point(0, 45);
             CustomersListBox.Name = "CustomersListBox";
@@ -116,6 +118,7 @@
             // 
             // addressControl
             // 
+            addressControl.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             addressControl.Location = new Point(-1, 109);
             addressControl.Name = "addressControl";
             addressControl.Size = new Size(511, 157);
@@ -133,6 +136,7 @@
             // 
             // IdTextBox
             // 
+            IdTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             IdTextBox.Location = new Point(79, 46);
             IdTextBox.Name = "IdTextBox";
             IdTextBox.ReadOnly = true;
@@ -141,6 +145,7 @@
             // 
             // FullNameTextBox
             // 
+            FullNameTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             FullNameTextBox.Location = new Point(79, 80);
             FullNameTextBox.Name = "FullNameTextBox";
             FullNameTextBox.Size = new Size(115, 23);
