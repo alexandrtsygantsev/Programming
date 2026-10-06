@@ -58,44 +58,12 @@ namespace ObjectOrientedPractics.Veiw.Controls
         {
             if (_isUpdating) return;
 
-            TrySetIndex();
-            TrySetString(CountryTextBox, v => _address.Country = v, _address.Country);
-            TrySetString(CityTextBox, v => _address.City = v, _address.City);
-            TrySetString(StreetTextBox, v => _address.Street = v, _address.Street);
-            TrySetString(BuildingTextBox, v => _address.Building = v, _address.Building);
-            TrySetString(ApartmentTextBox, v => _address.Apartment = v, _address.Apartment);
-        }
-
-        private void TrySetIndex()
-        {
-            if (!int.TryParse(IndexTextBox.Text, out int index))
-            {
-                IndexTextBox.BackColor = Color.LightPink;
-                return;
-            }
-
-            try
-            {
-                _address.Index = index;
-                IndexTextBox.BackColor = Color.White;
-            }
-            catch (ArgumentException)
-            {
-                IndexTextBox.BackColor = Color.LightPink;
-            }
-        }
-
-        private void TrySetString(TextBox textBox, Action<string> setter, string previousValue)
-        {
-            try
-            {
-                setter(textBox.Text ?? string.Empty);
-                textBox.BackColor = Color.White;
-            }
-            catch (ArgumentException)
-            {
-                textBox.BackColor = Color.LightPink;
-            }
+            _address.Index = int.TryParse(IndexTextBox.Text, out int index) ? index : _address.Index;
+            _address.Country = CountryTextBox.Text;
+            _address.City = CityTextBox.Text;
+            _address.Street = StreetTextBox.Text;
+            _address.Building = BuildingTextBox.Text;
+            _address.Apartment = ApartmentTextBox.Text;
         }
 
         private void TextBox_TextChanged(object sender, EventArgs e)
@@ -115,7 +83,7 @@ namespace ObjectOrientedPractics.Veiw.Controls
             {
                 textBox.BackColor = Color.LightPink;
                 errorProvider.SetError(textBox, error);
-                e.Cancel = true; // Отменяем уход фокуса, если есть ошибка
+                e.Cancel = true;
             }
             else
             {

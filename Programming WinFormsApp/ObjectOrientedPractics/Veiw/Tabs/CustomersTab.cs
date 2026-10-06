@@ -23,7 +23,7 @@ namespace ObjectOrientedPractics.Veiw.Tabs
             _isUpdating = true;
             IdTextBox.Text = string.Empty;
             FullNameTextBox.Text = string.Empty;
-            addressControl.Address = new Address(); // Создаем новый пустой адрес для сброса
+            addressControl.Address = new Address();
             _isUpdating = false;
             FullNameTextBox.BackColor = Color.White;
         }

@@ -73,8 +73,6 @@ namespace ObjectOrientedPractics.Veiw.Tabs
         {
             DetachTextHandlers();
 
-            // Отписываемся от события, чтобы смена SelectedItem
-            // не триггерила обработчик и не перезаписывала категорию.
             CategoryComboBox.SelectedIndexChanged -= CategoryComboBox_SelectedIndexChanged;
 
             IdTextBox.Text = item.Id.ToString();
